@@ -95,7 +95,7 @@
       $("#testLink").click(function(e) {
          e.preventDefault();
          $("#resultBlock").html("Getting the funk - stand by...");    
-         $.get("http://gitesdewallonie.be/selectedDays?hebPk=81&month=1&year=2012&range=1", {}, function(data) {
+         $.get(" http://clavius.affinitic.be:8877/plone/getMobileClosestHebs?address=canadiens+hyon", {}, function(data) {
              console.log(data);
              $("#resultBlock").html("<div> we received the values </div>");
           })
@@ -124,8 +124,12 @@
 	<h1>GDW Mobile!</h1>
     
     <div data-role="content">    
-      <a id="testLink" rel="external">Bring the data</a><br />
+      <a data-role="button" id="testLink" rel="external">Bring the data</a><br />
       <a id="geoLink" rel="external">Get the geolocalisation</a><br />
+      <div data-role="fieldcontain">
+           <label for="search">Search Input:</label>
+           <input type="search" name="password" id="search" value="" />
+       </div>
       <input type="text" name="search" id="searchBox" value="" data-theme="b" />
       <button type="submit" data-theme="b" id="searchButton">Search</button> <br />
        <a href="tel:+32499529229"> 
