@@ -1,40 +1,19 @@
  <!DOCTYPE html>
 <html>
 <head>
-<title>Allo Chambre</title>
+<title>title</title>
 <meta name="viewport" content="width=device-width, initial-scale=1"> 
- <script type="text/javascript" charset="utf-8" src="libs/phonegap-1.2.0.js"></script>
+<script type="text/javascript" charset="utf-8" src="libs/phonegap-1.2.0.js"></script>
  <link rel="stylesheet" type="text/css" href="libs/jquery.mobile-1.0.min.css" />
  <link rel="stylesheet" type="text/css" href="libs/app.css" />
  
  <script src="libs/jquery-1.7.1.min.js" type="text/javascript"></script>
  <script src="libs/jquery.mobile-1.0.min.js" type="text/javascript"></script>
+  <script src="libs/jquery.mobile-1.0.min.js" type="text/javascript"></script>
 
  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
  <script type="text/javascript" src="libs/jquery.ui.map.min.js"></script>
- <script type="text/javascript" src="libs/ICanHaz.min.js"></script>
  <script type="text/javascript" src="libs/app.js"></script>
- 
- 
-<script id="detailTpl" type="text/html">
-    <h1>{{ name }}</h1>
-    <h5>{{ description }}</h5>
-    <p>Max capacity : {{capacity_max}} - Min capacity : {{ capacity_min }}</p>
-    <div id="adress"><p>{{address}}<br />{{zip}} {{city}}<br /></p></div>
-	<h5>{{price}} euros</h5>
-	<div><p><strong>Chambre/bed</strong><br />Nombre de chambre : {{room_number}}<br />
-    Lit 2 places : {{two_person_bed}}<br />
-	Lit enfant : {{child_bed}}<br /></p></div>
-	<div><p><strong>Propri&eacute;taire/Owner</strong><br />
-    {{owner_title}} {{owner_firstname}} {{owner_name}}
-    {{owner_language}}<br />
-	Phone: <a href="tel:{{owner_phone}}">{{owner_phone}}</a><br />
-    Mobile: <a href="tel:{{owner_mobile}}">{{owner_mobile}}</a><br />
-	Fax :<a href="tel:{{owner_fax}}">{{owner_fax}}</a><br />
-	Email : {{owner_email}}<br />
-	www : {{owner_wwww}}<br />
-	</p></div>
-</script>
 </head>
 <body onload="onBodyLoad();" >
     <div data-role="page" id="home" data-theme="b">
@@ -45,12 +24,12 @@
 
     	<div data-role="content">	
     	    	
-            <p> <a href="#results" data-role="button" id="geoLocalise" data-transition="flip">G&eacute;olocalise moi</a></p>
+            <p> <a href="#results" data-role="button" id="geoLocalise" data-transition="pop">G&eacute;olocalise moi</a></p>
             <div data-role="fieldcontain">
                 <label for="name">Adresse :</label>
                 <span>
                 <input type="text" name="addresse" id="addresse" value=""  />
-                <a href="#results" id="searchClick" data-transition="flip" data-role="button">search</a>
+                <a href="#results" id="searchClick" data-role="button">search</a>
                 </span>
             </div>
     			
@@ -79,7 +58,7 @@
     	</div><!-- /header -->
 
     	<div data-role="content" id="content">	
-           
+    	
     	</div><!-- /content -->
 
     	
