@@ -28,8 +28,10 @@ function onError(error) {
 //GEOLOC STOP
 
 //Ajout de la liste
-function manageList(list,val,counter)
+function manageList(list,val,counter,isArray)
 {
+	if(!isArray)
+	{
 		$('#results #content #map').gmap('addMarker', { 'position': new google.maps.LatLng(val.longitude,val.latitude ), 'bounds': true ,'zoom':7 },function(map, marker){
 			$('#results #content #map').gmap('addInfoWindow', { 'position':marker.getPosition(), 'content': val.name }, function(iw) {
 				$(marker).click(function() {
@@ -39,17 +41,61 @@ function manageList(list,val,counter)
 			});
 		});
 		list.append('<li><a class="listClick" id="'+counter+'" data-url="details&ui-page=listview-1" data-transition="flip" ><img src="'+val.thumb+'"/><h3>'+val.name+'</h3></a></li>');
+	} else
+	{
+		var listHtml = '<li><a class="ilistClick" id="'+counter+'"data-transition="flip" ><img src="'+val[0].thumb+'"/><h3>'+val[0].name+'</h3></a><span class="ui-li-count">'+val.length+'</span></li>';
+			$('#results #content #map').gmap('addMarker', { 'position': new google.maps.LatLng(val[0].longitude,val[0].latitude ), 'bounds': true ,'zoom':7 },function(map, marker){
+				$('#results #content #map').gmap('addInfoWindow', { 'position':marker.getPosition(), 'content': val[0].name }, function(iw) {
+					$(marker).click(function() {
+						iw.open(map, marker);
+						map.panTo(marker.getPosition());
+					});                                                                                                                                                                                                                               
+				});
+			});
+		
+		list.append(listHtml);
+	}
+}
+
+function clickIListHandler(evt)
+{
+	var data = ajaxObject[evt.currentTarget.id];
+
+
+	var listHtml ='<ul data-role="listview" id="listeChambres" data-inset="true">';
+	var list = $("#resultsListe #content #listeChambres");
+	for(var i = 0;i<data.length;i++)
+	{
+		listHtml+=('<li><a class="listClick" id="'+evt.currentTarget.id+'_'+i+'" data-url="details&ui-page=listview-1" data-transition="flip" ><img src="'+data[i].thumb+'"/><h3>'+data[i].name+'</h3></a></li>');
+	}
+	listHtml+='</ul>'
+	$("#resultsListe #content").html(listHtml);
+	$("#resultsListe #content #listeChambres .listClick").bind({click:function(e){clickHandler(e)}});
+	$.mobile.changePage($("#resultsListe"));
+	$("#resultsListe").trigger('create');
 }
 
 
 function clickHandler(evt)
 {
-	var data = ajaxObject[evt.currentTarget.id];
-	console.log(data);
+	var doubleIdIndex = evt.currentTarget.id.indexOf('_');
+	var id,arrayId;
+	if(doubleIdIndex != -1)
+	{
+		id =evt.currentTarget.id.slice(0,doubleIdIndex);
+		arrayId = evt.currentTarget.id.slice(doubleIdIndex+1,evt.currentTarget.id.length)
+	} else
+	{
+		id = evt.currentTarget.id;
+	}
+	
+	var data = ajaxObject[id];
+
 	if($.isArray(data))
 	{
-		data = data[0];
+		data = data[arrayId];
 	}
+	console.log(data);
 	var tplData = {
 		name:data.name,
 		description : data.description,
@@ -85,7 +131,7 @@ function getResults(address)
 		address ="hyon";
 	}
 	$.mobile.showPageLoadingMsg();
-	$("#results #content").html('<div id="map" style="width:300px; height:260px;"> </div><div id="ajaxResults" style="margin-top:20px;"><ul data-role="listview" id="list"></ul></div><br/>	');
+	$("#results #content").html('<div id="map" style="width:300px; height:180px;"> </div><div id="ajaxResults" style="margin-top:20px;"><ul data-role="listview" id="list" data-inset="true"></ul></div><br/>	');
 	$("#results #content #map").gmap({  'callback': function() {}});
 	$.getJSON(" http://clavius.affinitic.be:8877/plone/getMobileClosestHebs?address="+address, {}, 
         function(data) {		
@@ -96,14 +142,15 @@ function getResults(address)
             	var counter = 0;
             	$.each(items, function(key, val) {
 					if(!$.isArray(items[key])){
-						manageList(list,val,counter);
+						manageList(list,val,counter,false);
 					} else
 					{
-						manageList(list,val[0],counter);
+						manageList(list,val,counter,true);
 					}
 					counter++;
 				});
 				$(".listClick").bind({click:function(e){clickHandler(e)}});
+				$(".ilistClick").bind({click:function(e){clickIListHandler(e)}});
 				
 			list.listview('refresh');	
 			$.mobile.hidePageLoadingMsg();	
@@ -121,8 +168,8 @@ $(document).ready(function() {
              navigator.geolocation.getCurrentPosition(onSuccess, onError);             
           });
 		$('#searchClick').click(function(e) {
-	             e.preventDefault();
-
-	             getResults($('#addresse').val());
+			e.preventDefault();
+			getResults($('#addresse').val());
 		  });
+	
 });
