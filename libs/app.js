@@ -79,19 +79,16 @@ function clickItineraireHandler(evt,args)
 {
 	var myLatitude, myLongitude, contentHtml;
 	navigator.geolocation.getCurrentPosition(function(position){
+			console.log("test1");
 	        myLatitude = position.coords.latitude;
 	        myLongitude = position.coords.longitude;
-			$('#itineraire #content #map').gmap({ 'center': new google.maps.LatLng(myLatitude,myLatitude), 'callback': function() {
-                     $('#itineraire #content #map').gmap('displayDirections', { 'origin': new google.maps.LatLng(myLatitude,myLatitude), 'destination': new google.maps.LatLng(args.longitude, args.latitude ), 'travelMode': google.maps.DirectionsTravelMode.DRIVING, 'unitSystem': google.maps.UnitSystem.METRIC },{ 'panel': document.getElementById('directions')}, function(success, result) {
-                            alert(success);
- 							if ( success )
-							{
-                                     alert('Results found!');
+			console.log(	$("#itineraire").html());
+			$("#itineraire #content #map").gmap({ "center": new google.maps.LatLng(42.345573,-71.098326), 'callback': function() {
+				 $('#itineraire #content #map').gmap('displayDirections', { 'origin': new google.maps.LatLng(50.4541,3.9523), 'destination': new google.maps.LatLng(50.4167, 4.43333 ), 'travelMode': google.maps.DirectionsTravelMode.DRIVING, 'unitSystem': google.maps.UnitSystem.METRIC },{ 'panel': document.getElementById('directions')}, function(success, result) {
+                         if ( success ){} else{alert("Data not received")}
+                                
+                 	});
 
-							} else {
-								alert('No Result found')
-							}
-                     });
              }});
 	});
 	$.mobile.changePage($("#itineraire"));
@@ -116,7 +113,6 @@ function clickHandler(evt)
 	{
 		data = data[arrayId];
 	}
-	console.log(data);
 	var tplData = {
 		name:data.name,
 		description : data.description,
