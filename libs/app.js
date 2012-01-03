@@ -10,13 +10,6 @@ function onDeviceReady()
 
 //GEOLOC START
 var onSuccess = function(position) {
-/*	var html ='Latitude: '+ position.coords.latitude + '<br />' +'Longitude: '+ position.coords.longitude + '<br /><div id="map" style="width:240px; height:340px"> </div><div id="ajaxResults"></div>';
-    $("#results #content").html(html);
-
-	$("#results #content #map").gmap({  'callback': function() {
-	   	$('#results #content #map').gmap('addMarker', { 'position': new google.maps.LatLng(position.coords.latitude, position.coords.longitude), 'bounds': true ,'zoom': 7} );
-	}});
-	*/
 	getResults(position.coords.latitude+','+position.coords.longitude);
 };	
 
@@ -85,8 +78,7 @@ function clickItineraireHandler(evt,args)
 			console.log(	$("#itineraire").html());
 			$("#itineraire #content #map").gmap({ "center": new google.maps.LatLng(42.345573,-71.098326), 'callback': function() {
 				 $('#itineraire #content #map').gmap('displayDirections', { 'origin': new google.maps.LatLng(50.4541,3.9523), 'destination': new google.maps.LatLng(50.4167, 4.43333 ), 'travelMode': google.maps.DirectionsTravelMode.DRIVING, 'unitSystem': google.maps.UnitSystem.METRIC },{ 'panel': document.getElementById('directions')}, function(success, result) {
-                         if ( success ){} else{alert("Data not received")}
-                                
+                         if ( success ){} else{alert("Data not received")}     
                  	});
 
              }});
