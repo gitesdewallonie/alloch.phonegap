@@ -1,0 +1,16 @@
+.ui-li-has-thumb .ui-btn-inner {
+    max-height: 44px;
+    padding-left: 2px;
+	padding-top: 4px;
+}
+
+.ui-li-has-thumb .ui-btn-inner .ui-btn-text{
+	 max-height: 42px;
+	 font-size: 3px;
+}
+.ui-li-has-thumb .ui-btn-inner a.ui-link-inherit{
+	 max-height: 42px;
+}
+.ui-li-has-thumb .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li-has-thumb {
+	padding-left: 68px;
+}

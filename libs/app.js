@@ -32,7 +32,7 @@ function manageList(list,val,counter,isArray)
 {
 	if(!isArray)
 	{
-		$('#results #content #map').gmap('addMarker', { 'position': new google.maps.LatLng(val.longitude,val.latitude ), 'bounds': true ,'zoom':7 },function(map, marker){
+		$('#results #content #map').gmap('addMarker', { 'position': new google.maps.LatLng(val.longitude,val.latitude ), 'bounds': true ,'zoom':3 },function(map, marker){
 			$('#results #content #map').gmap('addInfoWindow', { 'position':marker.getPosition(), 'content': val.name }, function(iw) {
 				$(marker).click(function() {
 					iw.open(map, marker);
@@ -44,15 +44,14 @@ function manageList(list,val,counter,isArray)
 	} else
 	{
 		var listHtml = '<li><a class="ilistClick" id="'+counter+'"data-transition="flip" ><img src="'+val[0].thumb+'"/><h3>'+val[0].name+'</h3></a><span class="ui-li-count">'+val.length+'</span></li>';
-			$('#results #content #map').gmap('addMarker', { 'position': new google.maps.LatLng(val[0].longitude,val[0].latitude ), 'bounds': true ,'zoom':7 },function(map, marker){
+			$('#results #content #map').gmap('addMarker', { 'position': new google.maps.LatLng(val[0].longitude,val[0].latitude ), 'bounds': true ,'zoom':3},function(map, marker){
 				$('#results #content #map').gmap('addInfoWindow', { 'position':marker.getPosition(), 'content': val[0].name }, function(iw) {
 					$(marker).click(function() {
 						iw.open(map, marker);
-						map.panTo(marker.getPosition());
+						map.panTo(marker.getPosition()); 
 					});                                                                                                                                                                                                                               
-				});
+				});	
 			});
-		
 		list.append(listHtml);
 	}
 }
@@ -75,6 +74,28 @@ function clickIListHandler(evt)
 	$("#resultsListe").trigger('create');
 }
 
+
+function clickItineraireHandler(evt,args)
+{
+	var myLatitude, myLongitude, contentHtml;
+	navigator.geolocation.getCurrentPosition(function(position){
+	        myLatitude = position.coords.latitude;
+	        myLongitude = position.coords.longitude;
+			$('#itineraire #content #map').gmap({ 'center': new google.maps.LatLng(myLatitude,myLatitude), 'callback': function() {
+                     $('#itineraire #content #map').gmap('displayDirections', { 'origin': new google.maps.LatLng(myLatitude,myLatitude), 'destination': new google.maps.LatLng(args.longitude, args.latitude ), 'travelMode': google.maps.DirectionsTravelMode.DRIVING, 'unitSystem': google.maps.UnitSystem.METRIC },{ 'panel': document.getElementById('directions')}, function(success, result) {
+                            alert(success);
+ 							if ( success )
+							{
+                                     alert('Results found!');
+
+							} else {
+								alert('No Result found')
+							}
+                     });
+             }});
+	});
+	$.mobile.changePage($("#itineraire"));
+}
 
 function clickHandler(evt)
 {
@@ -116,11 +137,14 @@ function clickHandler(evt)
 		owner_mobile : data.owner.mobile,
 		owner_fax : data.owner.fax,
 		owner_email : data.owner.email,
-		owner_www : data.owner.website
+		owner_www : data.owner.website,
+		longitude : data.longitude,
+		latitude : data.latitude
 	};
 	
 	detailTpl=ich.detailTpl(tplData);
 	$("#details #content").html(detailTpl);
+	$("#details #content .itineraireClick").bind({click:function(e){clickItineraireHandler(e,{ longitude: data.longitude,latitude : data.latitude })}});
 	$.mobile.changePage($("#details"));
 }
 
@@ -131,9 +155,9 @@ function getResults(address)
 		address ="hyon";
 	}
 	$.mobile.showPageLoadingMsg();
-	$("#results #content").html('<div id="map" style="width:300px; height:180px;"> </div><div id="ajaxResults" style="margin-top:20px;"><ul data-role="listview" id="list" data-inset="true"></ul></div><br/>	');
-	$("#results #content #map").gmap({  'callback': function() {}});
-	$.getJSON(" http://clavius.affinitic.be:8877/plone/getMobileClosestHebs?address="+address, {}, 
+	$("#results #content #map").gmap({'callback': function() {}});
+	$("#results #content #map").gmap('clearMarkers');
+	$.getJSON("http://clavius.affinitic.be:8877/plone/fr/getMobileClosestHebs?address="+address, {}, 
         function(data) {		
             	ajaxObject = data.results;
             	var items=data.results;
@@ -152,9 +176,10 @@ function getResults(address)
 				$(".listClick").bind({click:function(e){clickHandler(e)}});
 				$(".ilistClick").bind({click:function(e){clickIListHandler(e)}});
 				
-			list.listview('refresh');	
+			list.listview('refresh');
 			$.mobile.hidePageLoadingMsg();	
     })
+
 	$('#results').trigger('create');
 	
 }
