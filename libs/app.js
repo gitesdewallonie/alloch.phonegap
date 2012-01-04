@@ -105,6 +105,13 @@ function clickHandler(evt)
 	{
 		data = data[arrayId];
 	}
+
+	var ajaxPhotos  = new Array();
+	var tplArr = data.photos;
+	for(var i = 0; i < tplArr.length;i++)
+	{
+		ajaxPhotos.push({'src':tplArr[i]});
+	}
 	var tplData = {
 		name:data.name,
 		description : data.description,
@@ -127,12 +134,17 @@ function clickHandler(evt)
 		owner_email : data.owner.email,
 		owner_www : data.owner.website,
 		longitude : data.longitude,
-		latitude : data.latitude
+		latitude : data.latitude,
+		photos : ajaxPhotos
+		
 	};
 	
 	detailTpl=ich.detailTpl(tplData);
+	$("#details #header .titre").html(data.name);
 	$("#details #content").html(detailTpl);
+
 	$("#details #content .itineraireClick").bind({click:function(e){clickItineraireHandler(e,{ longitude: data.longitude,latitude : data.latitude })}});
+	$('#details #content .pix_diapo').diapo();	
 	$.mobile.changePage($("#details"));
 }
 

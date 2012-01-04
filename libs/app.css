@@ -14,3 +14,10 @@
 .ui-li-has-thumb .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li-has-thumb {
 	padding-left: 68px;
 }
+
+#details #content #adress{
+	padding:0 5px 0 5px;
+	background: background: -moz-linear-gradient(top, white, #6a9eed,10%);
+	background-image: -webkit-gradient(linear, 0 0, 0 10%, from(white), to(#6a9eed));
+	background-repeat: no-repeat;
+}
