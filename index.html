@@ -4,12 +4,14 @@
 <title>Allo Chambre</title>
 <meta name="viewport" content="width=device-width, initial-scale=1"> 
  <script type="text/javascript" charset="utf-8" src="libs/phonegap-1.2.0.js"></script>
+<link rel="stylesheet" type="text/css" href="libs/jquery.mobile-1.0.min.css" />
+<link rel="stylesheet" type="text/css" href="libs/gdwm.min.css" />
 
-<!-- <link rel="stylesheet" type="text/css" href="libs/jquery.mobile-1.0.min.css" />-->
- <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile.structure-1.0.min.css" /> 
- <link rel="stylesheet" type="text/css" href="libs/diapo.css" />
- <link rel="stylesheet" type="text/css" href="libs/gdwm.min.css" />
+<link rel="stylesheet" type="text/css" href="libs/diapo.css" />
  <link rel="stylesheet" type="text/css" href="libs/app.css" />
+
+<!-- <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile.structure-1.0.min.css" /> -->
+
 
  
  <script src="libs/jquery-1.7.1.min.js" type="text/javascript"></script>
@@ -28,27 +30,47 @@
     <div style="overflow: hidden; width:300px; height:195px;"> 
         <div class="pix_diapo">
         {{#photos}}
-          <div><img src="{{src}}" /></div>
+          <div><img src="{{src}}"/></div>
         {{/photos}}
         </div>
     </div>
-    <div id="adress"><p>{{address}} - {{zip}} {{city}}</p></div>
-    <h5>{{ description }}</h5>
-    <p>Max capacity : {{capacity_max}} - Min capacity : {{ capacity_min }}</p>
-	<h5>{{price}} euros</h5>
-	<div><p><strong>Chambre/bed</strong><br />Nombre de chambre : {{room_number}}<br />
-    Lit 2 places : {{two_person_bed}}<br />
-	Lit enfant : {{child_bed}}<br /></p></div>
-	<div><p><strong>Propri&eacute;taire/Owner</strong><br />
-    {{owner_title}} {{owner_firstname}} {{owner_name}}
-    {{owner_language}}<br />
-	Phone: <a href="tel:{{owner_phone}}">{{owner_phone}}</a><br />
-    Mobile: <a href="tel:{{owner_mobile}}">{{owner_mobile}}</a><br />
-	Fax :<a href="tel:{{owner_fax}}">{{owner_fax}}</a><br />
-	Email : {{owner_email}}<br />
-	www : {{owner_wwww}}<br />
-	Itin&eacute;raire = <a class="itineraireClick"s>Itin&eacute;raire Google</a>
-	</p></div>
+	<div id="adress_global">
+           
+            <div id="infos_pictos">
+                <div id="cel1">
+                    <img src="libs/images/details/nombreminmax.png" width="41" height="32"/>
+                    {{ capacity_min }}/{{capacity_max}}
+                </div>
+                <div id="cel2">    
+                    <img src="libs/images/details/lit.png" width="31" height="32"/>
+                   {{two_person_bed}}
+                </div>
+                <div id="cel3">  
+                    <img src="libs/images/details/litbebe.png" width="31" height="32"/>
+                   {{child_bed}}
+                </div>
+                <div id="cel4">
+                   {{price}} &#8364;
+                </div>
+            </div>
+           <div id="adress">
+              {{owner_title}} {{owner_firstname}} {{owner_name}}<br />
+               {{address}} <br />
+               {{zip}} {{city}}
+           </div>
+           <div id="contact_itineraire">
+               <div id="phone">
+                    <a href="tel:{{owner_phone}}"><img src="libs/images/details/phonebtn.png" width="99" height="66" /></a> 
+               </div>
+                <div id="gps">
+                     <a class="itineraireClick"><img src="libs/images/details/gps.png" width="99" height="66" /></a>
+                </div>	                                                           
+           </div>
+           <div id="description">
+               <h5>{{ description }}</h5>
+           </div>
+      </div>
+	
 </script>
 </head>
 <body onload="onBodyLoad();" >
@@ -73,7 +95,7 @@
 
     
     </div><!-- /page -->
-    <div data-role="page" id="results" data-theme="b">
+    <div data-role="page" id="results">
         
     	    	<div data-role="header">
     	    	    <a href="#home" data-icon="arrow-l" data-transition="flip">Back</a>
@@ -92,7 +114,7 @@
     
     </div><!-- /page -->
     
-    <div data-role="page" id="resultsListe" data-theme="b">
+    <div data-role="page" id="resultsListe" >
         
     	    	<div data-role="header">
     	    	    <a href="#results" data-icon="arrow-l" data-transition="flip">Back</a>

@@ -1,23 +1,90 @@
-.ui-li-has-thumb .ui-btn-inner {
-    max-height: 44px;
-    padding-left: 2px;
-	padding-top: 4px;
+body{
+	color:b5d1fa;
 }
 
-.ui-li-has-thumb .ui-btn-inner .ui-btn-text{
-	 max-height: 42px;
-	 font-size: 3px;
+.ui-li-has-thumb .ui-btn-inner {
+max-height: 44px;
+padding-left: 2px;
+padding-top: 4px;
 }
-.ui-li-has-thumb .ui-btn-inner a.ui-link-inherit{
-	 max-height: 42px;
+
+.ui-li-has-thumb .ui-btn-inner .ui-btn-text {
+max-height: 42px;
+font-size: 3px;
+}
+.ui-li-has-thumb .ui-btn-inner a.ui-link-inherit {
+max-height: 42px;
 }
 .ui-li-has-thumb .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li-has-thumb {
-	padding-left: 68px;
+padding-left: 68px;
 }
 
-#details #content #adress{
-	padding:0 5px 0 5px;
-	background: background: -moz-linear-gradient(top, white, #6a9eed,10%);
-	background-image: -webkit-gradient(linear, 0 0, 0 10%, from(white), to(#6a9eed));
-	background-repeat: no-repeat;
+/****DETAILS ZONE****/
+#adress_global {
+    border-top: 1px solid #FFF;
+    padding-top: 30px;
+    padding-bottom:30px;
+    background :#b5d1fa;
+    /* Navigateurs Safari */
+    background: -webkit-gradient(linear, 0 0, 0 5%, from(#6e7f98), to(#b5d1fa));
+    /* Navigateurs Mozillas */
+    background : -moz-linear-gradient(top, #6e7f98, #b5d1fa 10%);
 }
+
+#adress_global #infos_pictos{
+    display:block;
+    padding-top:10px;
+    padding-left:10px;
+    padding-right : 10px;
+    color : #fff;
+    font-size: 1.5em;
+    text-shadow:2px 2px 2px #000000;
+    background : #5d9af5;
+    height : 45px;
+}
+
+#adress_global #infos_pictos div{
+	float:left;
+	line-height:36px;
+}
+#adress_global #infos_pictos div img{
+	vertical-align:middle;
+}
+#adress_global #infos_pictos #cel1{
+	width: 120px;
+}
+#adress_global #infos_pictos #cel2{
+	width: 75px;
+}
+#adress_global #infos_pictos #cel3{
+	width: 60px;
+}
+#adress_global #infos_pictos #cel4{
+	float:right;
+}
+#adress_global #adress{
+	margin-top:10px;
+	margin-bottom:10px;
+	color="#242333";
+	text-align:center;
+	text-shadow:none;
+}
+
+#adress_global #contact_itineraire{
+	padding-left:70px;
+	padding-right : 70px;
+}
+
+#adress_global #contact_itineraire #phone{
+	float:left;
+}
+
+#adress_global #contact_itineraire #gps{
+	float:right;
+}
+#adress_global #description{
+	padding-left :30px;
+	padding-right:30px;
+	clear:both;
+}
+
