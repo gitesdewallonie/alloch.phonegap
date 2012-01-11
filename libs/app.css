@@ -1,13 +1,8 @@
-body{
-	color:b5d1fa;
-}
-
 .ui-li-has-thumb .ui-btn-inner {
 max-height: 44px;
 padding-left: 2px;
 padding-top: 4px;
 }
-
 .ui-li-has-thumb .ui-btn-inner .ui-btn-text {
 max-height: 42px;
 font-size: 3px;
@@ -18,7 +13,31 @@ max-height: 42px;
 .ui-li-has-thumb .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li-has-thumb {
 padding-left: 68px;
 }
-
+.ui-mobile-viewport{
+	background-color: #ff000;
+}
+.map{
+	width:100%; 
+	height:200px;
+	margin:auto;
+}
+.pictureholder{
+	overflow: hidden;
+	width:310px; 
+	height:195px;
+	margin:auto;
+}
+#results #content{
+	margin:0 0 0 0;
+	padding:0 0 0 0;
+}
+#results #content #ajaxResults{
+	padding : 0px 15px 15px 15px;
+}
+#details #content{
+    margin:0 0 0 0;
+    padding:0 0 0 0;
+}
 /****DETAILS ZONE****/
 #adress_global {
     border-top: 1px solid #FFF;
@@ -30,7 +49,6 @@ padding-left: 68px;
     /* Navigateurs Mozillas */
     background : -moz-linear-gradient(top, #6e7f98, #b5d1fa 10%);
 }
-
 #adress_global #infos_pictos{
     display:block;
     padding-top:10px;
@@ -42,7 +60,6 @@ padding-left: 68px;
     background : #5d9af5;
     height : 45px;
 }
-
 #adress_global #infos_pictos div{
 	float:left;
 	line-height:36px;
@@ -69,16 +86,13 @@ padding-left: 68px;
 	text-align:center;
 	text-shadow:none;
 }
-
 #adress_global #contact_itineraire{
 	padding-left:70px;
 	padding-right : 70px;
 }
-
 #adress_global #contact_itineraire #phone{
 	float:left;
 }
-
 #adress_global #contact_itineraire #gps{
 	float:right;
 }

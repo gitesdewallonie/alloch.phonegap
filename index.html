@@ -8,7 +8,7 @@
 <link rel="stylesheet" type="text/css" href="libs/gdwm.min.css" />
 
 <link rel="stylesheet" type="text/css" href="libs/diapo.css" />
- <link rel="stylesheet" type="text/css" href="libs/app.css" />
+<link rel="stylesheet" type="text/css" href="libs/app.css" />
 
 <!-- <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile.structure-1.0.min.css" /> -->
 
@@ -27,7 +27,7 @@
  
  
 <script id="detailTpl" type="text/html">
-    <div style="overflow: hidden; width:300px; height:195px;"> 
+    <div class="pictureholder"> 
         <div class="pix_diapo">
         {{#photos}}
           <div><img src="{{src}}"/></div>
@@ -103,7 +103,7 @@
             	</div><!-- /header -->
 
     	<div data-role="content" id="content">	
-	        <div id="map" style="width:300px; height:180px;"> </div>
+	        <div id="map" class="map"> </div>
 	        <div id="ajaxResults" style="margin-top:20px;">
 	            <ul data-role="listview" id="list" data-inset="true">
 	            </ul>
@@ -150,7 +150,7 @@
        	</div><!-- /header -->
 
        	<div data-role="content"  id="content">	
-       	    <div id="map" style="width:290px;height:240px;"></div>
+       	    <div id="map" class="map"></div>
        	    <div id="directions"></div>
        	</div><!-- /content -->
 

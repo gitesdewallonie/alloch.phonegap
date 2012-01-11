@@ -1,11 +1,23 @@
 function onBodyLoad()
 {		
+	checkConnectivity();
 	document.addEventListener("deviceready", onDeviceReady, false);
 }
 
 function onDeviceReady()
 {
-   
+
+}
+
+function checkConnectivity()
+{
+	var isOnline = false;
+	if (navigator.onLine) {
+	  isOnline = true;
+	} else {
+	  alert('offline');
+	  isOnline = false; 
+	}
 }
 
 //GEOLOC START
@@ -158,7 +170,12 @@ function getResults(address)
 	$("#results #content #map").gmap({'callback': function() {}});
 	$("#results #content #map").gmap('clearMarkers');
 	$.getJSON("http://clavius.affinitic.be:8877/plone/fr/getMobileClosestHebs?address="+address, {}, 
-        function(data) {		
+        function(data,textStatus) 
+	{		
+				if(textStatus!='success')
+				{
+					alert("il y a un soucis de connection au serveur")
+				}
             	ajaxObject = data.results;
             	var items=data.results;
             	var list = $("#results #content #ajaxResults #list");
@@ -178,8 +195,7 @@ function getResults(address)
 				
 			list.listview('refresh');
 			$.mobile.hidePageLoadingMsg();	
-    })
-
+    });
 	$('#results').trigger('create');
 	
 }
@@ -189,8 +205,8 @@ $(document).ready(function() {
       var ajaxObject;
 
        $("#geoLocalise").click(function(e) {
-             e.preventDefault();	
-             navigator.geolocation.getCurrentPosition(onSuccess, onError);             
+			e.preventDefault();	
+			navigator.geolocation.getCurrentPosition(onSuccess, onError);             
           });
 		$('#searchClick').click(function(e) {
 			e.preventDefault();
