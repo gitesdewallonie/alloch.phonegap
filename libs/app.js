@@ -1,3 +1,6 @@
+var zoomGlobal = 7;
+var ajaxURL = "http://clavius.affinitic.be:8877/plone/fr/getMobileClosestHebs?address=";
+
 function onBodyLoad()
 {		
 	checkConnectivity();
@@ -35,37 +38,22 @@ function onError(error) {
 //Ajout de la liste
 function manageList(list,val,counter,isArray)
 {
+	var value ;
 	if(!isArray)
 	{
-		$('#results #content #map').gmap('addMarker', { 'position': new google.maps.LatLng(val.longitude,val.latitude ), 'bounds': true ,'zoom':3 },function(map, marker){
-			$('#results #content #map').gmap('addInfoWindow', { 'position':marker.getPosition(), 'content': val.name }, function(iw) {
-				$(marker).click(function() {
-					iw.open(map, marker);
-					map.panTo(marker.getPosition());
-				});                                                                                                                                                                                                                               
-			});
-		});
-		list.append('<li><a class="listClick" id="'+counter+'" data-url="details&ui-page=listview-1" data-transition="flip" ><img src="'+val.thumb+'"/><h3>'+val.name+'</h3></a></li>');
+		value = val;
+		list.append('<li><a class="listClick" id="'+counter+'" data-url="details&ui-page=listview-1" ><img src="'+val.thumb+'"/><h3>'+val.name+'</h3></a></li>');
 	} else
 	{
-		var listHtml = '<li><a class="ilistClick" id="'+counter+'"data-transition="flip" ><img src="'+val[0].thumb+'"/><h3>'+val[0].name+'</h3></a><span class="ui-li-count">'+val.length+'</span></li>';
-			$('#results #content #map').gmap('addMarker', { 'position': new google.maps.LatLng(val[0].longitude,val[0].latitude ), 'bounds': true ,'zoom':3},function(map, marker){
-				$('#results #content #map').gmap('addInfoWindow', { 'position':marker.getPosition(), 'content': val[0].name }, function(iw) {
-					$(marker).click(function() {
-						iw.open(map, marker);
-						map.panTo(marker.getPosition()); 
-					});                                                                                                                                                                                                                               
-				});	
-			});
-		list.append(listHtml);
+ 		value=val[0]; 
+		list.append('<li><a class="ilistClick" id="'+counter+'"data-transition="flip" ><img src="'+val[0].thumb+'"/><h3>'+val[0].name+'</h3></a><span class="ui-li-count">'+val.length+'</span></li>');
 	}
+	setMap(value);
 }
 
 function clickIListHandler(evt)
 {
 	var data = ajaxObject[evt.currentTarget.id];
-
-
 	var listHtml ='<ul data-role="listview" id="listeChambres" data-inset="true">';
 	var list = $("#resultsListe #content #listeChambres");
 	for(var i = 0;i<data.length;i++)
@@ -83,17 +71,16 @@ function clickIListHandler(evt)
 function clickItineraireHandler(evt,args)
 {
 	var myLatitude, myLongitude, contentHtml;
-	navigator.geolocation.getCurrentPosition(function(position){
-			console.log("test1");
-	        myLatitude = position.coords.latitude;
-	        myLongitude = position.coords.longitude;
-			console.log(	$("#itineraire").html());
-			$("#itineraire #content #map").gmap({ "center": new google.maps.LatLng(42.345573,-71.098326), 'callback': function() {
-				 $('#itineraire #content #map').gmap('displayDirections', { 'origin': new google.maps.LatLng(50.4541,3.9523), 'destination': new google.maps.LatLng(50.4167, 4.43333 ), 'travelMode': google.maps.DirectionsTravelMode.DRIVING, 'unitSystem': google.maps.UnitSystem.METRIC },{ 'panel': document.getElementById('directions')}, function(success, result) {
-                         if ( success ){} else{alert("Data not received")}     
-                 	});
-
-             }});
+	console.log(args);
+	navigator.geolocation.getCurrentPosition(function(position)
+	{
+		myLatitude = position.coords.latitude;
+		myLongitude = position.coords.longitude;
+		$("#itineraire #content #map").gmap({ 'center': new google.maps.LatLng(myLatitude,myLongitude),'disableDefaultUI':true,'mapTypeControl':false,'navigationControl':false, 'callback': function() {
+			$('#itineraire #content #map').gmap('displayDirections', { 'origin': new google.maps.LatLng(myLatitude,myLongitude), 'destination': new google.maps.LatLng(args.longitude, args.latitude ), 'travelMode': google.maps.DirectionsTravelMode.DRIVING, 'unitSystem': google.maps.UnitSystem.METRIC },{ 'panel': document.getElementById('directions')}, function(success, result) {
+				if ( success ){} else{alert("Data not received")}     
+			});
+		}});
 	});
 	$.mobile.changePage($("#itineraire"));
 }
@@ -160,14 +147,28 @@ function clickHandler(evt)
 	$.mobile.changePage($("#details"));
 }
 
+function setMap(val)
+{		
+		$("#results #content #map").gmap({ 'center': new google.maps.LatLng(val.longitude,val.latitude ),'zoom':zoomGlobal,'disableDefaultUI':true,'mapTypeControl':false,'navigationControl':false,'callback': function(){
 
+			$('#results #content #map').gmap('addMarker', { 'position': new google.maps.LatLng(val.longitude,val.latitude ),'bounds':true},function(map, marker){
+				$('#results #content #map').gmap('addInfoWindow', { 'position':marker.getPosition(), 'content': val.name }, function(iw) {
+					$(marker).click(function() {
+						iw.open(map, marker);
+						map.panTo(marker.getPosition());
+					});                                                                                                                                                                                                                               
+				});
+			});
+	}});
+}
 function getResults(address)
 {
+	$.mobile.showPageLoadingMsg();
 	if(address == null){
 		address ="hyon";
 	}
-	$.mobile.showPageLoadingMsg();
-	$("#results #content #map").gmap({'callback': function() {}});
+	$("#results #content #ajaxResults #list").html("");
+	$("#results #content #map").gmap();
 	$("#results #content #map").gmap('clearMarkers');
 	$.getJSON("http://clavius.affinitic.be:8877/plone/fr/getMobileClosestHebs?address="+address, {}, 
         function(data,textStatus) 
@@ -197,13 +198,9 @@ function getResults(address)
 			$.mobile.hidePageLoadingMsg();	
     });
 	$('#results').trigger('create');
-	
 }
-
-
 $(document).ready(function() {
       var ajaxObject;
-
        $("#geoLocalise").click(function(e) {
 			e.preventDefault();	
 			navigator.geolocation.getCurrentPosition(onSuccess, onError);             
@@ -213,4 +210,10 @@ $(document).ready(function() {
 			getResults($('#addresse').val());
 		  });
 	
+});
+
+$(document).bind("mobileinit", function(){
+	$.mobile.defaultPageTransition = 'fade';
+	$.mobile.allowCrossDomainPages = true;
+//	$.mobile.touchOverflowEnabled = true;
 });
