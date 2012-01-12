@@ -5,6 +5,13 @@ function onBodyLoad()
 {		
 	checkConnectivity();
 	document.addEventListener("deviceready", onDeviceReady, false);
+	document.addEventListener("resume", onResume, false);
+
+}
+
+
+function onResume() {
+	$.mobile.changePage($("#home"));
 }
 
 function onDeviceReady()
