@@ -5,15 +5,14 @@ function onBodyLoad()
 {		
 	checkConnectivity();
 	document.addEventListener("deviceready", onDeviceReady, false);
-	document.addEventListener("resume", onResume, false);
-
+//	document.addEventListener("pause", onResume, false);
 }
 
 
-function onResume() {
+/*function onResume() {
 	$.mobile.changePage($("#home"));
 }
-
+*/
 function onDeviceReady()
 {
 
@@ -50,17 +49,15 @@ function manageList(list,val,counter,isArray)
 	if(!isArray)
 	{
 		value = val;
-		list.append('<li><a class="listClick" id="'+counter+'" data-url="details&ui-page=listview-1" ><img src="'+val.thumb+'"/><h3>'+val.name+'</h3></a></li>');
+		list.append('<li><a class="listClick" id="'+counter+'" ><img src="'+val.thumb+'"/><h3>'+val.name+'</h3></a></li>');
 		link = '<a class="listClick" id="'+counter+'"';
 	} else
 	{
- 		value=val[0]; 
-		list.append('<li><a class="ilistClick" id="'+counter+'><img src="'+val[0].thumb+'"/><h3>'+val[0].name+'</h3></a><span class="ui-li-count">'+val.length+'</span></li>');
+		list.append('<li><a class="ilistClick" id="'+counter+'"><img src="'+val[0].thumb+'"/><h3>'+val[0].name+'</h3></a><span class="ui-li-count">'+val.length+'</span></li>');
+ 		value=val[0];
 		link ='<a class="ilistClick" id="'+counter+'"';
 	}
 	setMap(value,link);
-	$(".listClick").bind({click:function(e){clickHandler(e)}});
-	$(".ilistClick").bind({click:function(e){clickIListHandler(e)}});
 }
 
 function clickIListHandler(evt)
@@ -72,7 +69,7 @@ function clickIListHandler(evt)
 	{
 		listHtml+=('<li><a class="listClick" id="'+evt.currentTarget.id+'_'+i+'" data-url="details&ui-page=listview-1" ><img src="'+data[i].thumb+'"/><h3>'+data[i].name+'</h3></a></li>');
 	}
-	listHtml+='</ul>'
+	listHtml+='</ul>';
 	$("#resultsListe #content").html(listHtml);
 	$("#resultsListe #content #listeChambres .listClick").bind({click:function(e){clickHandler(e)}});
 	$.mobile.changePage($("#resultsListe"));
@@ -133,7 +130,8 @@ function clickHandler(evt)
 		price : data.price,
 		room_number : data.room_number,
 		two_person_bed : data.two_person_bed,
-		child_bed : data.child_bed,
+		one_person_bed : data.one_person_bed,
+		distribution : data.distribution,
 		owner_title : data.owner.title,
 		owner_fisrtname : data.owner.firstname,
 		owner_name : data.owner.name,
@@ -146,6 +144,7 @@ function clickHandler(evt)
 		longitude : data.longitude,
 		latitude : data.latitude,
 		photos : ajaxPhotos
+
 		
 	};
 	
@@ -167,7 +166,8 @@ function setMap(val,link)
 					$(marker).click(function() {
 						iw.open(map, marker);
 						map.panTo(marker.getPosition());
-						$(".listClick").bind({click:function(e){clickHandler(e)}});
+						$("#results #content #map .listClick").bind({click:function(e){clickHandler(e)}});
+						$("#results #content #map .ilistClick").bind({click:function(e){clickIListHandler(e)}});
 					});                                                                                                                                                                                                                               
 				});
 			});
@@ -183,7 +183,7 @@ function getResults(address)
 	$("#results #content #ajaxResults #list").html("");
 	$("#results #content #map").gmap();
 	$("#results #content #map").gmap('clearMarkers');
-	$.getJSON("http://clavius.affinitic.be:8877/plone/fr/getMobileClosestHebs?address="+address, {}, 
+	$.getJSON(ajaxURL+address, {}, 
         function(data,textStatus) 
 	{		
 				if(textStatus!='success')
