@@ -27,6 +27,23 @@ padding-left: 68px;
 	height:195px;
 	margin:auto;
 }
+.footer{
+	padding-top:10px;
+	padding-bottom:10px;
+	clear:both;
+}
+
+.footer #homeNav
+{
+	padding-left:15px;
+	float:left;
+}
+
+.footer #creditsNav
+{
+	padding-right:15px;
+	float:right;
+}
 #results #content{
 	margin:0 0 0 0;
 	padding:0 0 0 0;
@@ -38,13 +55,19 @@ padding-left: 68px;
     margin:0 0 0 0;
     padding:0 0 0 0;
 }
+
+#credits #content{
+	margin:0 0 0 0;
+    padding:0 0 0 0;
+}
+
 /****DETAILS ZONE****/
 #adress_global {
-border-top: 1px solid #FFF;
-padding-top: 30px;
-padding-bottom: 30px;background :#b5d1fa;/* Navigateurs Safari */
-background:-webkit-gradient(linear,0 0,0 5%,from(#6e7f98),to(#b5d1fa));/* Navigateurs Mozillas */
-background :-moz-linear-gradient(top,#6e7f98,#b5d1fa 10%);
+	border-top: 1px solid #FFF;
+	padding-top: 30px;
+	padding-bottom: 30px;background :#b5d1fa;/* Navigateurs Safari */
+	background:-webkit-gradient(linear,0 0,0 5%,from(#6e7f98),to(#b5d1fa));/* Navigateurs Mozillas */
+	background :-moz-linear-gradient(top,#6e7f98,#b5d1fa 10%);
 }
 #adress_global #infos_pictos{
     display:block;
@@ -62,25 +85,25 @@ background :-moz-linear-gradient(top,#6e7f98,#b5d1fa 10%);
 	line-height:36px;
 }
 #adress_global #infos_pictos div img {
-vertical-align: middle;
+	vertical-align: middle;
 }
 #adress_global #infos_pictos #cel1 {
-width: 90px;
+	width: 90px;
 }
 #adress_global #infos_pictos #cel2 {
-width: 60px;
+	width: 60px;
 }
 #adress_global #infos_pictos #cel3 {
-width: 60px;
+	width: 60px;
 }
 #adress_global #infos_pictos #cel4 {
-float: right;
+	float: right;
 }
 #adress_global #adress {
-margin-top: 10px;
-margin-bottom: 10px;color="#242333";
-text-align: center;
-text-shadow: none;
+	margin-top: 10px;
+	margin-bottom: 10px;color="#242333";
+	text-align: center;
+	text-shadow: none;
 }
 #adress_global #contact_itineraire{
 	padding-left:70px;

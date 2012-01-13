@@ -81,9 +81,14 @@
                     <a href="#results" data-role="button" id="geoLocalise"  name="geoLocalise">G&eacute;olocalise moi</a>
                 </p>
                 <div data-role="fieldcontain">
+                    <form>
                     <label for="name">Adresse :</label> <span><input type="text" name="addresse" id="addresse" value=""> <a href="#results" id="searchClick"  data-role="button" name="searchClick">search</a></span>
+                    </form>
                 </div>
             </div><!-- /content -->
+            <div class="footer" data-role="footer" data-position="fixed">
+                 <div id="creditsNav"><a href="#credits" data-icon="gear" data-role="button">Cr&eacute;dits</a></div>
+            </div><!-- /footer -->
         </div><!-- /page -->
         <div data-role="page" id="results">
             <div data-role="header">
@@ -98,6 +103,10 @@
                     <ul data-role="listview" id="list" data-inset="true"></ul>
                 </div><br>
             </div><!-- /content -->
+             <div class="footer" data-role="footer" data-position="fixed">
+                     <div id="homeNav"><a href="#home" data-icon="home" data-role="button" data-iconpos="notext">Home</a></div>
+                     <div id="creditsNav"><a href="#credits" data-icon="gear" data-role="button">Cr&eacute;dits</a></div>
+                </div><!-- /footer -->
         </div><!-- /page -->
         <div data-role="page" id="resultsListe">
             <div data-role="header">
@@ -116,6 +125,10 @@
                 </h1>
             </div><!-- /header -->
             <div data-role="content" id="content"></div><!-- /content -->
+             <div class="footer" data-role="footer" data-position="fixed">
+                     <div id="homeNav"><a href="#home" data-icon="home" data-role="button" data-iconpos="notext">Home</a></div>
+                     <div id="creditsNav"><a href="#credits" data-icon="gear" data-role="button">Cr&eacute;dits</a></div>
+                </div><!-- /footer -->
         </div><!-- /page -->
         <div data-role="page" id="itineraire">
             <div data-role="header">
@@ -128,18 +141,24 @@
                 <div id="map" class="map"></div>
                 <div id="directions"></div>
             </div><!-- /content -->
+             <div class="footer" data-role="footer" data-position="fixed">
+                     <div id="homeNav"><a href="#home" data-icon="home" data-role="button" data-iconpos="notext">Home</a></div>
+                     <div id="creditsNav"><a href="#credits" data-icon="gear" data-role="button">Cr&eacute;dits</a></div>
+                </div><!-- /footer -->
         </div><!-- /page -->
         <div data-role="page" id="credits">
             <div data-role="header">
+                <a href="#home" data-icon="home" data-role="button" data-iconpos="notext">Home</a>
                 <h1>
-                    Page Title
+                    Cr&eacute;dits
                 </h1>
             </div><!-- /header -->
-            <div data-role="content">
-                <p>
-                    Page content goes here.
-                </p>
+            <div id="content" data-role="content">
+              <img src="libs/images/credit.png">
             </div><!-- /content -->
+            <div class="footer" data-role="footer" data-position="fixed">
+                     <div id="homeNav"><a href="#home" data-icon="home" data-role="button" data-iconpos="notext">Home</a></div>
+                </div><!-- /footer -->
         </div><!-- /page -->
     </body>
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true&region=BE&language=fr"></script>

@@ -1,4 +1,4 @@
-var zoomGlobal = 7;
+var zoomGlobal = 9;
 var ajaxURL = "http://clavius.affinitic.be:8877/plone/fr/getMobileClosestHebs?address=";
 
 function onBodyLoad()
@@ -46,16 +46,21 @@ function onError(error) {
 function manageList(list,val,counter,isArray)
 {
 	var value ;
+	var link ;
 	if(!isArray)
 	{
 		value = val;
 		list.append('<li><a class="listClick" id="'+counter+'" data-url="details&ui-page=listview-1" ><img src="'+val.thumb+'"/><h3>'+val.name+'</h3></a></li>');
+		link = '<a class="listClick" id="'+counter+'"';
 	} else
 	{
  		value=val[0]; 
-		list.append('<li><a class="ilistClick" id="'+counter+'"data-transition="flip" ><img src="'+val[0].thumb+'"/><h3>'+val[0].name+'</h3></a><span class="ui-li-count">'+val.length+'</span></li>');
+		list.append('<li><a class="ilistClick" id="'+counter+'><img src="'+val[0].thumb+'"/><h3>'+val[0].name+'</h3></a><span class="ui-li-count">'+val.length+'</span></li>');
+		link ='<a class="ilistClick" id="'+counter+'"';
 	}
-	setMap(value);
+	setMap(value,link);
+	$(".listClick").bind({click:function(e){clickHandler(e)}});
+	$(".ilistClick").bind({click:function(e){clickIListHandler(e)}});
 }
 
 function clickIListHandler(evt)
@@ -65,7 +70,7 @@ function clickIListHandler(evt)
 	var list = $("#resultsListe #content #listeChambres");
 	for(var i = 0;i<data.length;i++)
 	{
-		listHtml+=('<li><a class="listClick" id="'+evt.currentTarget.id+'_'+i+'" data-url="details&ui-page=listview-1" data-transition="flip" ><img src="'+data[i].thumb+'"/><h3>'+data[i].name+'</h3></a></li>');
+		listHtml+=('<li><a class="listClick" id="'+evt.currentTarget.id+'_'+i+'" data-url="details&ui-page=listview-1" ><img src="'+data[i].thumb+'"/><h3>'+data[i].name+'</h3></a></li>');
 	}
 	listHtml+='</ul>'
 	$("#resultsListe #content").html(listHtml);
@@ -78,7 +83,6 @@ function clickIListHandler(evt)
 function clickItineraireHandler(evt,args)
 {
 	var myLatitude, myLongitude, contentHtml;
-	console.log(args);
 	navigator.geolocation.getCurrentPosition(function(position)
 	{
 		myLatitude = position.coords.latitude;
@@ -154,19 +158,21 @@ function clickHandler(evt)
 	$.mobile.changePage($("#details"));
 }
 
-function setMap(val)
-{		
+function setMap(val,link)
+{	
+	var infoValue =link+'><h5>'+ val.name + ' '+val.capacity_min+' p. <br/>'+val.address.town+'</h5></a>';
 		$("#results #content #map").gmap({ 'center': new google.maps.LatLng(val.longitude,val.latitude ),'zoom':zoomGlobal,'disableDefaultUI':true,'mapTypeControl':false,'navigationControl':false,'callback': function(){
-
 			$('#results #content #map').gmap('addMarker', { 'position': new google.maps.LatLng(val.longitude,val.latitude ),'bounds':true},function(map, marker){
-				$('#results #content #map').gmap('addInfoWindow', { 'position':marker.getPosition(), 'content': val.name }, function(iw) {
+				$('#results #content #map').gmap('addInfoWindow', { 'position':marker.getPosition(), 'content': infoValue }, function(iw) {
 					$(marker).click(function() {
 						iw.open(map, marker);
 						map.panTo(marker.getPosition());
+						$(".listClick").bind({click:function(e){clickHandler(e)}});
 					});                                                                                                                                                                                                                               
 				});
 			});
 	}});
+	
 }
 function getResults(address)
 {
