@@ -156,7 +156,10 @@ function clickHandler(evt)
 	$('#details #content .pix_diapo').diapo();	
 	$.mobile.changePage($("#details"));
 }
-
+function swipeHandler(e){
+	alert("swipe");
+	console.log(e);
+}
 function setMap(val,link)
 {	
 	var infoValue =link+'><h5>'+ val.name + ' '+val.capacity_min+' p. <br/>'+val.address.town+'</h5></a>';
@@ -221,7 +224,9 @@ $(document).ready(function() {
 		$('#searchClick').click(function(e) {
 			e.preventDefault();
 			getResults($('#addresse').val());
-		  });
+		});
+		
+		$('.swipe').bind({swipe:function(e){swipeHandler(e)}});
 	
 });
 
