@@ -163,6 +163,7 @@ function swipeHandler(e){
 function setMap(val,link)
 {	
 	var infoValue =link+'><h5>'+ val.name + ' '+val.capacity_min+' p. <br/>'+val.address.town+'</h5></a>';
+		$("#results #content #map").gmap({});
 		$("#results #content #map").gmap({ 'center': new google.maps.LatLng(val.longitude,val.latitude ),'zoom':zoomGlobal,'disableDefaultUI':true,'mapTypeControl':false,'navigationControl':false,'callback': function(){
 			$('#results #content #map').gmap('addMarker', { 'position': new google.maps.LatLng(val.longitude,val.latitude ),'bounds':true},function(map, marker){
 				$('#results #content #map').gmap('addInfoWindow', { 'position':marker.getPosition(), 'content': infoValue }, function(iw) {
@@ -171,6 +172,12 @@ function setMap(val,link)
 						map.panTo(marker.getPosition());
 						$("#results #content #map .listClick").bind({click:function(e){clickHandler(e)}});
 						$("#results #content #map .ilistClick").bind({click:function(e){clickIListHandler(e)}});
+						$("#results #content #map .listClick").bind({click:function(e){
+							iw.close();
+						}});
+						$("#results #content #map .ilistClick").bind({click:function(e){
+							iw.close();
+						}});						
 					});                                                                                                                                                                                                                               
 				});
 			});

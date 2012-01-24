@@ -120,3 +120,8 @@ padding-left: 68px;
 padding-right: 30px;
 clear: both;
 }
+
+#home #header h1{
+	font: 90% "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
+}
+
