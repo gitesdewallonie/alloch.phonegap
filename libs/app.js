@@ -1,5 +1,5 @@
 var zoomGlobal = 9;
-var ajaxURL = "http://clavius.affinitic.be:8877/plone/fr/getMobileClosestHebs?address=";
+var ajaxURL = "http://www.allochambredhotes.be/getMobileClosestHebs?address=";
 
 function onBodyLoad()
 {		
