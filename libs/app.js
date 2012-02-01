@@ -230,9 +230,22 @@ $(document).ready(function() {
           });
 		$('#searchClick').click(function(e) {
 			e.preventDefault();
-			getResults($('#addresse').val());
+			var utf8adresse = unescape( encodeURIComponent( $('#addresse').val()) );
+			getResults(utf8adresse);
 		});
-		
+		$('.onEnterSearch').keypress(function(evt) {
+		    if(evt.keyCode === 13){
+		        if(this.value != "") {
+					evt.preventDefault();
+					var utf8adresse = unescape( encodeURIComponent( $('#addresse').val()) );
+					$.mobile.changePage($("#results"));
+					getResults(utf8adresse);
+				}
+				
+		        return false;
+		    }
+		    return true;
+		});
 		$('.swipe').bind({swipe:function(e){swipeHandler(e)}});
 	
 });
