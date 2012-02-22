@@ -34,23 +34,22 @@
                     <img src="libs/images/details/nombreminmax.png" width="41" height="32"/>
                     {{ capacity_min }}/{{capacity_max}}
                 </div>
-                <div id="cel2">    
+                <div id="cel2"> 
+                {{#astwopersonbed}}  
                     <img src="libs/images/details/lit.png" width="31" height="32"/>
                    {{two_person_bed}}
+                {{/astwopersonbed}} 
                 </div>
-                <div id="cel3">  
+                <div id="cel3">
+                {{#asonepersonbed}}  
                     <img src="libs/images/details/lit1p.png" width="31" height="32"/>
                    {{one_person_bed}}
+                {{/asonepersonbed}} 
                 </div>
                 <div id="cel4">
                    {{price}} &#8364;
                 </div>
             </div>
-           <div id="adress">
-              {{owner_title}} {{owner_firstname}} {{owner_name}}<br />
-               {{address}} <br />
-               {{zip}} {{city}}
-           </div>
            <div id="contact_itineraire">
                <div id="phone">
                     <a href="tel:{{owner_phone}}"><img src="libs/images/details/phonebtn.png" width="70" height="50" /></a> 
@@ -59,6 +58,11 @@
                      <a class="itineraireClick"><img src="libs/images/details/gps.png"  width="70" height="50" /></a>
                 </div>                                                            
            </div>
+           <div id="adress">
+                 {{owner_title}} {{owner_firstname}} {{owner_name}}<br />
+                  {{address}} <br />
+                  {{zip}} {{city}}
+              </div>
            <div id="description">
                <h5>{{ description }}<br />
                {{ distribution }}</h5>
@@ -73,7 +77,7 @@
         <div data-role="page" id="home" data-theme="b">
             <div data-role="header" id="header">
                 <h1>
-                    Allo chambres d'hotes !
+                    Allo chambres d'h&ocirc;tes !
                 </h1>
             </div><!-- /header -->
             <div data-role="content">
@@ -127,7 +131,7 @@
             <div data-role="content" id="content"></div><!-- /content -->
              <div class="footer" data-role="footer" data-position="fixed">
                      <div id="homeNav"><a href="#home" data-icon="home" data-role="button" data-iconpos="notext">Home</a></div>
-                     <div id="creditsNav"><a href="#credits" data-icon="gear" data-role="button">Cr&eacute;dits</a></div>
+                     <div id="creditsNav"><a href="#credits2" data-icon="gear" data-role="button">Cr&eacute;dits</a></div>
                 </div><!-- /footer -->
         </div><!-- /page -->
         <div data-role="page" id="itineraire">
@@ -154,10 +158,24 @@
                 </h1>
             </div><!-- /header -->
             <div id="content" data-role="content">
-              <img src="libs/images/credit.png">
+             <img src="libs/images/credit.png">
             </div><!-- /content -->
             <div class="footer" data-role="footer" data-position="fixed">
                      <div id="homeNav"><a href="#home" data-icon="home" data-role="button" data-iconpos="notext">Home</a></div>
+                </div><!-- /footer -->
+        </div><!-- /page -->
+        <div data-role="page" id="credits2">
+            <div data-role="header">
+               <a href="#details" data-icon="arrow-l" >Back</a>
+                <h1>
+                    Cr&eacute;dits
+                </h1>
+            </div><!-- /header -->
+            <div id="content" data-role="content">
+             <img src="libs/images/credit.png">
+            </div><!-- /content -->
+            <div class="footer" data-role="footer" data-position="fixed">
+                     <div id="homeNav"><a href="#details" data-icon="home" data-role="button" data-iconpos="notext">Home</a></div>
                 </div><!-- /footer -->
         </div><!-- /page -->
     </body>

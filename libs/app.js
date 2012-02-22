@@ -144,9 +144,19 @@ function clickHandler(evt)
 		longitude : data.longitude,
 		latitude : data.latitude,
 		photos : ajaxPhotos
-
-		
 	};
+	
+	if(tplData.one_person_bed ==0){
+		tplData.asonepersonbed= false;
+	} else {
+		tplData.asonepersonbed= true;
+	}
+	
+	if(tplData.two_person_bed ==0){
+		tplData.astwopersonbed= false;
+	} else {
+		tplData.astwopersonbed= true;
+	}
 	
 	detailTpl=ich.detailTpl(tplData);
 	$("#details #header .titre").html(data.name);
