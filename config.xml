@@ -45,7 +45,8 @@
     <gap:splash src="splashes/retina.png" width="640" height="960"/>
     
     <!-- features permissions -->
-    <feature name="http://api.phonegap.com/1.4.1/geolocation"/>
-    <feature name="http://api.phonegap.com/1.4.1/network"/>
+    <feature name="http://api.phonegap.com/1.0/geolocation"/>
+    <feature name="http://api.phonegap.com/1.0/network"/>
+    <feature name="http://api.phonegap.com/1.0/notification"/>
 
 </widget>
