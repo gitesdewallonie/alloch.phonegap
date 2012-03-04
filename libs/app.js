@@ -24,7 +24,8 @@ function checkConnectivity()
 	if (navigator.onLine) {
 	  isOnline = true;
 	} else {
-	  alert('offline');
+	  alert("Il n'y a pas Internet ...");
+      // navigator.app.exitApp();
 	  isOnline = false; 
 	}
 }
@@ -40,25 +41,6 @@ function onError(error) {
           'message: ' + error.message + '\n');
 }
 //GEOLOC STOP
-
-//Ajout de la liste
-function manageList(list,val,counter,isArray)
-{
-	var value ;
-	var link ;
-	if(!isArray)
-	{
-		value = val;
-		list.append('<li><a class="listClick" id="'+counter+'" ><img src="'+val.thumb+'"/><h3>'+val.name+'</h3></a></li>');
-		link = '<a class="listClick" id="'+counter+'"';
-	} else
-	{
-		list.append('<li><a class="ilistClick" id="'+counter+'"><img src="'+val[0].thumb+'"/><h3>'+val[0].name+'</h3></a><span class="ui-li-count">'+val.length+'</span></li>');
- 		value=val[0];
-		link ='<a class="ilistClick" id="'+counter+'"';
-	}
-	setMap(value,link);
-}
 
 function clickIListHandler(evt)
 {
@@ -170,11 +152,19 @@ function swipeHandler(e){
 	alert("swipe");
 	console.log(e);
 }
-function setMap(val,link)
-{	
-	var infoValue =link+'><h5>'+ val.name + ' '+val.capacity_min+' p. <br/>'+val.address.town+'</h5></a>';
-		$("#results #content #map").gmap({});
-		$("#results #content #map").gmap({ 'center': new google.maps.LatLng(val.longitude,val.latitude ),'zoom':zoomGlobal,'disableDefaultUI':true,'mapTypeControl':false,'navigationControl':false,'callback': function(){
+function setMap(values)
+{
+	$("#results #content #map").gmap();
+    if ($("#results #content #map").gmap('getMarkers').length > 0) {
+        $("#results #content #map").gmap('destroy');
+    }
+	$("#results #content #map").gmap({'zoom':zoomGlobal,'disableDefaultUI':true,'mapTypeControl':false,'navigationControl':false,'callback': function(){
+        var counter = 0;
+        var link = "";
+        var infoValue = "";
+        $.each(values, function(index, val) {
+            link = '<a class="listClick" id="'+counter+'"';
+	        infoValue = link+'><h5>'+ val.name + ' '+val.capacity_min+' p. <br/>'+val.address.town+'</h5></a>';
 			$('#results #content #map').gmap('addMarker', { 'position': new google.maps.LatLng(val.longitude,val.latitude ),'bounds':true},function(map, marker){
 				$('#results #content #map').gmap('addInfoWindow', { 'position':marker.getPosition(), 'content': infoValue }, function(iw) {
 					$(marker).click(function() {
@@ -191,39 +181,40 @@ function setMap(val,link)
 					});                                                                                                                                                                                                                               
 				});
 			});
-	}});
-	
+            counter++;
+        })	
+  }});
 }
 function getResults(address)
 {
 	$.mobile.showPageLoadingMsg();
-	if(address == null){
-		address ="hyon";
-	}
+
 	$("#results #content #ajaxResults #list").html("");
-	$("#results #content #map").gmap();
-	$("#results #content #map").gmap('clearMarkers');
 	$.getJSON(ajaxURL+address, {}, 
         function(data,textStatus) 
 	{		
 				if(textStatus!='success')
 				{
-					alert("il y a un soucis de connection au serveur")
+					alert("Il y a un soucis de connection au serveur")
 				}
             	ajaxObject = data.results;
-            	var items=data.results;
+            	var items = data.results;
             	var list = $("#results #content #ajaxResults #list");
             	list.html("");
             	var counter = 0;
+                var mapPoints = [];
             	$.each(items, function(key, val) {
 					if(!$.isArray(items[key])){
-						manageList(list,val,counter,false);
+		                list.append('<li><a class="listClick" id="'+counter+'" ><img src="'+val.thumb+'"/><h3>'+val.name+'</h3></a></li>');
+                        mapPoints.push(val);
 					} else
 					{
-						manageList(list,val,counter,true);
+		                list.append('<li><a class="ilistClick" id="'+counter+'"><img src="'+val[0].thumb+'"/><h3>'+val[0].name+'</h3></a><span class="ui-li-count">'+val.length+'</span></li>');
+                        mapPoints.push(val[0]);
 					}
 					counter++;
 				});
+                setMap(mapPoints);
 				$(".listClick").bind({click:function(e){clickHandler(e)}});
 				$(".ilistClick").bind({click:function(e){clickIListHandler(e)}});
 				
@@ -241,7 +232,11 @@ $(document).ready(function() {
 		$('#searchClick').click(function(e) {
 			e.preventDefault();
 			var utf8adresse = unescape( encodeURIComponent( $('#addresse').val()) );
-			getResults(utf8adresse);
+            if (utf8adresse == "") {
+                alert('Vous devez rentrer une adresse ...')
+                return false;
+		    }
+		    getResults(utf8adresse);
 		});
 		$('.onEnterSearch').keypress(function(evt) {
 		    if(evt.keyCode === 13){
@@ -251,12 +246,11 @@ $(document).ready(function() {
 					$.mobile.changePage($("#results"));
 					getResults(utf8adresse);
 				}
-				
 		        return false;
 		    }
 		    return true;
 		});
-		$('.swipe').bind({swipe:function(e){swipeHandler(e)}});
+        // $('.swipe').bind({swipe:function(e){swipeHandler(e)}});
 	
 });
 

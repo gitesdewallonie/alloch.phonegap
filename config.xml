@@ -1,31 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<widget xmlns		= "http://www.w3.org/ns/widgets"
-	xmlns:gap	= "http://phonegap.com/ns/1.4"
-	id		= "be.gitesdewallonie.allochambresdhotes"
-	version 	= "1.4.0">
+<widget xmlns	= "http://www.w3.org/ns/widgets"
+	xmlns:gap	= "http://phonegap.com/ns/1.0"
+	id		    = "be.gitesdewallonie.allochambredhotes"
+	version 	= "1.5.0">
 
-	<name>Allo chambres d'hôtes</name>
-    
-    <preference name="phonegap-version" value="1.4.1" />
+	<name>Allo chambre d'hôtes</name>
     
 	<description>
         Application permettant de rechercher une chambre d'hôte à proximité d'où vous êtes ou près d'une adresse encodée.
 	</description>
 
-	<author href=""
-		email="gilles.bertrand@affinitic.be">
-		Gilles Bertrand
+	<author href="http://www.gitesdewallonie.be"
+	        email="info@gitesdewallonie.be">
+		Gites de Wallonie
 	</author>
 
+    <preference name="phonegap-version" value="1.4.1" />
+    <preference name="orientation" value="portrait" />
+
 	<gap:platforms>
+	    <gap:platform name="ios"/>
 		<gap:platform name="android" minVersion="2.1" />
 		<gap:platform name="webos" />
 		<gap:platform name="symbian.wrt" />
 		<gap:platform name="blackberry" project="widgets"/>
 	</gap:platforms>
-    
-    <preference name="orientation" value="portrait" />
-    
     
 	<icon src="icons/icon.png" gap:role="default" />
     <!-- iOS requires specific dimensions for icons; classic iPhone screens, Retina
@@ -47,6 +46,5 @@
     <!-- features permissions -->
     <feature name="http://api.phonegap.com/1.0/geolocation"/>
     <feature name="http://api.phonegap.com/1.0/network"/>
-    <feature name="http://api.phonegap.com/1.0/notification"/>
 
 </widget>
