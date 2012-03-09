@@ -15,7 +15,7 @@ function onBodyLoad()
 */
 function onDeviceReady()
 {
-
+	
 }
 
 function checkConnectivity()
