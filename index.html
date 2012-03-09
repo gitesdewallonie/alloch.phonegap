@@ -10,6 +10,10 @@
         <link rel="stylesheet" type="text/css" href="libs/diapo.css">
         <link rel="stylesheet" type="text/css" href="libs/app.css"><!-- <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile.structure-1.0.min.css" /> -->
         
+       <script type="text/javascript" charset="utf-8">
+            var language = navigator.language.substr(0, 2);
+       </script>
+        
         <script type="text/javascript" charset="utf-8" src="libs/phonegap-1.4.1.js"></script>
         <script src="libs/jquery-1.7.1.min.js" type="text/javascript"></script>
         <script type="text/javascript" src="libs/app.js"></script>
@@ -77,29 +81,94 @@
         <div data-role="page" id="home" data-theme="b">
             <div data-role="header" id="header">
                 <h1>
-                    Allo chambre d'h&ocirc;tes !
+                      <script type="text/javascript" charset="utf-8">
+                         switch (language)
+                         {
+                             case "en":
+                               document.write('Allo chambre d\'h&ocirc;tes !');
+                             break;
+                             case "fr":
+                                document.write('Allo chambre d\'h&ocirc;tes !');
+                             break;
+                             case "nl":
+                                 document.write('Allo chambre d\'h&ocirc;tes !');
+                              break;
+                         }
+                       </script>
                 </h1>
             </div><!-- /header -->
             <div data-role="content">
                 <p>
-                    <a href="#results" data-role="button" id="geoLocalise"  name="geoLocalise">G&eacute;olocalise-moi</a>
+                    <script type="text/javascript" charset="utf-8">
+                         switch (language)
+                         {
+                             case "en":
+                               document.write('<a href="#results" data-role="button" id="geoLocalise"  name="geoLocalise">Geolocate me</a>');
+                             break;
+                             case "fr":
+                                document.write('<a href="#results" data-role="button" id="geoLocalise"  name="geoLocalise">G&eacute;olocalise-moi</a>');
+                             break;
+                             case "nl":
+                                 document.write('<a href="#results" data-role="button" id="geoLocalise"  name="geoLocalise">Geolokaliseer mij@</a>');
+                              break;
+                         }
+                       </script>
+                   
                 </p>
                 <div data-role="fieldcontain">
                     <form>
-                    <label for="name">Adresse :</label> <span><input type="text" name="addresse" class="onEnterSearch" id="addresse" value=""> <a href="#results" id="searchClick"  data-role="button" name="searchClick">Chercher</a></span>
+                          <script type="text/javascript" charset="utf-8">
+                                 switch (language)
+                                 {
+                                     case "en":
+                                       document.write('<label for="name">Address :</label> <span><input type="text" name="addresse" class="onEnterSearch" id="addresse" value=""> <a href="#results" id="searchClick"  data-role="button" name="searchClick">Lookup</a></span>');
+                                     break;
+                                     case "fr":
+                                        document.write('<label for="name">Adresse :</label> <span><input type="text" name="addresse" class="onEnterSearch" id="addresse" value=""> <a href="#results" id="searchClick"  data-role="button" name="searchClick">Chercher</a></span>');
+                                     break;
+                                     case "nl":
+                                         document.write('<label for="name">Addres :</label> <span><input type="text" name="addresse" class="onEnterSearch" id="addresse" value=""> <a href="#results" id="searchClick"  data-role="button" name="searchClick">Zoek</a></span></a>');
+                                      break;
+                                 }
+                               </script>
                     </form>
                 </div>
             </div><!-- /content -->
             <div class="footer" data-role="footer" data-position="fixed">
-                 <div id="creditsNav"><a href="#credits" data-icon="gear" data-role="button">Cr&eacute;dits</a></div>
+                <script type="text/javascript" charset="utf-8">
+                     switch (language)
+                     {
+                         case "en":
+                           document.write('<div id="creditsNav"><a href="#credits" data-icon="gear" data-role="button">Credits</a></div>');
+                         break;
+                         case "fr":
+                            document.write('<div id="creditsNav"><a href="#credits" data-icon="gear" data-role="button">Cr&eacute;dits</a></div>');
+                         break;
+                         case "nl":
+                             document.write('<div id="creditsNav"><a href="#credits" data-icon="gear" data-role="button">Cr&eacute;dits</a></div>');
+                          break;
+                     }
+                   </script>
+              
             </div><!-- /footer -->
         </div><!-- /page -->
         <div data-role="page" id="results">
             <div data-role="header">
-                <a href="#home" data-icon="arrow-l" >Retour</a>
-                <h2>
-                    R&eacute;sultats
-                </h2>
+                <script type="text/javascript" charset="utf-8">
+                     switch (language)
+                     {
+                         case "en":
+                           document.write('<a href="#home" data-icon="arrow-l" >Back</a> <h2>Results</h2>');
+                         break;
+                         case "fr":
+                            document.write('<a href="#home" data-icon="arrow-l" >Retour</a> <h2>R&eacute;sultats</h2>');
+                         break;
+                         case "nl":
+                             document.write('<a href="#home" data-icon="arrow-l" >Back</a> <h2>Resultaten</h2>');
+                          break;
+                     }
+                   </script>
+               
             </div><!-- /header -->
             <div data-role="content" id="content">
                 <div id="map" class="map"></div>
@@ -109,37 +178,93 @@
             </div><!-- /content -->
              <div class="footer" data-role="footer" data-position="fixed">
                      <div id="homeNav"><a href="#home" data-icon="home" data-role="button" data-iconpos="notext">Home</a></div>
-                     <div id="creditsNav"><a href="#credits" data-icon="gear" data-role="button">Cr&eacute;dits</a></div>
+                     <script type="text/javascript" charset="utf-8">
+                          switch (language)
+                          {
+                              case "en":
+                                document.write('<div id="creditsNav"><a href="#credits" data-icon="gear" data-role="button">Credits</a></div>');
+                              break;
+                              case "fr":
+                                 document.write('<div id="creditsNav"><a href="#credits" data-icon="gear" data-role="button">Cr&eacute;dits</a></div>');
+                              break;
+                              case "nl":
+                                  document.write('<div id="creditsNav"><a href="#credits" data-icon="gear" data-role="button">Cr&eacute;dits</a></div>');
+                               break;
+                          }
+                        </script>
                 </div><!-- /footer -->
         </div><!-- /page -->
         <div data-role="page" id="resultsListe">
             <div data-role="header">
-                <a href="#results" data-icon="arrow-l" >Retour</a>
-                <h2>
-                    Chambres Group&eacute;es
-                </h2>
+                <script type="text/javascript" charset="utf-8">
+                     switch (language)
+                     {
+                         case "en":
+                           document.write('<a href="#results" data-icon="arrow-l" >Back</a> <h2>Grouped Rooms</h2>');
+                         break;
+                         case "fr":
+                            document.write('<a href="#results" data-icon="arrow-l" >Retour</a> <h2>Chambres group&eacute;es</h2>');
+                         break;
+                         case "nl":
+                             document.write('<a href="#results" data-icon="arrow-l" >Back</a> <h2>Gegroepeerde gastenkamers</h2>');
+                          break;
+                     }
+                   </script>
             </div><!-- /header -->
             <div data-role="content" id="content"></div><!-- /content -->
         </div><!-- /page -->
         <div data-role="page" id="details">
             <div id="header" data-role="header">
-                <a href="#results" data-icon="arrow-l" >Retour</a>
-                <h1 class="titre">
-                    D&eacute;tails
-                </h1>
+                 <script type="text/javascript" charset="utf-8">
+                         switch (language)
+                         {
+                             case "en":
+                               document.write('<a href="#results" data-icon="arrow-l" >Back</a> <h2>Details</h2>');
+                             break;
+                             case "fr":
+                                document.write('<a href="#results" data-icon="arrow-l" >Retour</a> <h2>D&eacute;tails</h2>');
+                             break;
+                             case "nl":
+                                 document.write('<a href="#results" data-icon="arrow-l" >Back</a> <h2>Details/h2>');
+                              break;
+                         }
+                       </script>
             </div><!-- /header -->
             <div data-role="content" id="content"></div><!-- /content -->
              <div class="footer" data-role="footer" data-position="fixed">
                      <div id="homeNav"><a href="#home" data-icon="home" data-role="button" data-iconpos="notext">Home</a></div>
-                     <div id="creditsNav"><a href="#credits2" data-icon="gear" data-role="button">Cr&eacute;dits</a></div>
+                     <script type="text/javascript" charset="utf-8">
+                          switch (language)
+                          {
+                              case "en":
+                                document.write('<div id="creditsNav"><a href="#credits2" data-icon="gear" data-role="button">Credits</a></div>');
+                              break;
+                              case "fr":
+                                 document.write('<div id="creditsNav"><a href="#credits2" data-icon="gear" data-role="button">Cr&eacute;dits</a></div>');
+                              break;
+                              case "nl":
+                                  document.write('<div id="creditsNav"><a href="#credits2" data-icon="gear" data-role="button">Cr&eacute;dits</a></div>');
+                               break;
+                          }
+                        </script>
                 </div><!-- /footer -->
         </div><!-- /page -->
         <div data-role="page" id="itineraire">
             <div data-role="header">
-                <a href="#details" data-icon="arrow-l" >Retour</a>
-                <h1>
-                    Itin&eacute;raire
-                </h1>
+                <script type="text/javascript" charset="utf-8">
+                         switch (language)
+                         {
+                             case "en":
+                               document.write('<a href="#details" data-icon="arrow-l" >Back</a> <h2>Route</h2>');
+                             break;
+                             case "fr":
+                                document.write('<a href="#details" data-icon="arrow-l" >Retour</a> <h2>Itin&eacute;raire</h2>');
+                             break;
+                             case "nl":
+                                 document.write('<a href="#details" data-icon="arrow-l" >Back</a> <h2>Route/h2>');
+                              break;
+                         }
+                       </script>
             </div><!-- /header -->
             <div data-role="content" id="content">
                 <div id="map" class="map"></div>
@@ -147,15 +272,40 @@
             </div><!-- /content -->
              <div class="footer" data-role="footer" data-position="fixed">
                      <div id="homeNav"><a href="#home" data-icon="home" data-role="button" data-iconpos="notext">Home</a></div>
-                     <div id="creditsNav"><a href="#credits" data-icon="gear" data-role="button">Cr&eacute;dits</a></div>
+                      <script type="text/javascript" charset="utf-8">
+                           switch (language)
+                           {
+                               case "en":
+                                 document.write('<div id="creditsNav"><a href="#credits" data-icon="gear" data-role="button">Credits</a></div>');
+                               break;
+                               case "fr":
+                                  document.write('<div id="creditsNav"><a href="#credits" data-icon="gear" data-role="button">Cr&eacute;dits</a></div>');
+                               break;
+                               case "nl":
+                                   document.write('<div id="creditsNav"><a href="#credits" data-icon="gear" data-role="button">Cr&eacute;dits</a></div>');
+                                break;
+                           }
+                         </script>
                 </div><!-- /footer -->
         </div><!-- /page -->
         <div data-role="page" id="credits">
             <div data-role="header">
                 <a href="#home" data-icon="home" data-role="button" data-iconpos="notext">Home</a>
-                <h1>
-                    Cr&eacute;dits
-                </h1>
+
+                 <script type="text/javascript" charset="utf-8">
+                             switch (language)
+                             {
+                                 case "en":
+                                   document.write('<h2>Credits</h2>');
+                                 break;
+                                 case "fr":
+                                    document.write(' <h2>Cr&eacute;dits</h2>');
+                                 break;
+                                 case "nl":
+                                     document.write('<h2>Cr&eacute;dits</h2>');
+                                  break;
+                             }
+                           </script>               
             </div><!-- /header -->
             <div id="content" data-role="content">
              <img src="libs/images/credit.png">
@@ -166,10 +316,20 @@
         </div><!-- /page -->
         <div data-role="page" id="credits2">
             <div data-role="header">
-               <a href="#details" data-icon="arrow-l" >Retour</a>
-                <h1>
-                    Cr&eacute;dits
-                </h1>
+                  <script type="text/javascript" charset="utf-8">
+                             switch (language)
+                             {
+                                 case "en":
+                                   document.write('<a href="#details" data-icon="arrow-l" >Back</a> <h2>Credits</h2>');
+                                 break;
+                                 case "fr":
+                                    document.write('<a href="#details" data-icon="arrow-l" >Retour</a> <h2>Cr&eacute;dits</h2>');
+                                 break;
+                                 case "nl":
+                                     document.write('<a href="#details" data-icon="arrow-l" >Back</a> <h2>Cr&eacute;dits</h2>');
+                                  break;
+                             }
+                           </script>
             </div><!-- /header -->
             <div id="content" data-role="content">
              <img src="libs/images/credit.png">
@@ -179,6 +339,20 @@
                 </div><!-- /footer -->
         </div><!-- /page -->
     </body>
-    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true&region=BE&language=fr"></script>
+     <script type="text/javascript" charset="utf-8">
+                 switch (language)
+                 {
+                     case "en":
+                       document.write('<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true&region=BE&language=en"></script>');
+                     break;
+                     case "fr":
+                        document.write('<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true&region=BE&language=fr"></script>');
+                     break;
+                     case "nl":
+                         document.write('<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true&region=BE&language=nl"></script>');
+                      break;
+                 }
+               </script>
+  
     <script type="text/javascript" src="libs/jquery.ui.map.min.js"></script>
 </html>

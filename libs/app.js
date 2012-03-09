@@ -1,5 +1,5 @@
 var zoomGlobal = 9;
-var ajaxURL = "http://www.allochambredhotes.be/getMobileClosestHebs?address=";
+var ajaxURL = "http://www.allochambredhotes.be/getMobileClosestHebs?LANGUAGE=en&address=";
 
 function onBodyLoad()
 {		
