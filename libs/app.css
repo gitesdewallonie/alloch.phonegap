@@ -125,10 +125,13 @@ padding-left: 68px;
 	margin-top:10px;
 
 }
-
 #home #header h1{
 	width:100%;
 	margin-left:0;
 	font: 100% "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
+}
+
+#credits2 #content{
+	padding : 0;
 }
 
