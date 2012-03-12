@@ -1,6 +1,7 @@
 var zoomGlobal = 9;
 var ajaxURL = "http://www.allochambredhotes.be/getMobileClosestHebs";
-
+var watchID = null;
+var geolocation = null;
 function onBodyLoad()
 {		
 	checkConnectivity();
@@ -15,7 +16,8 @@ function onBodyLoad()
 */
 function onDeviceReady()
 {
-	
+ 		var options = { frequency: 3000 };
+        watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
 }
 
 function checkConnectivity()
@@ -32,7 +34,8 @@ function checkConnectivity()
 
 //GEOLOC START
 var onSuccess = function(position) {
-	getResults(position.coords.latitude+','+position.coords.longitude);
+	geolocation = position;
+//	getResults(position.coords.latitude+','+position.coords.longitude);
 };	
 
 // onError Callback receives a PositionError object
@@ -187,10 +190,11 @@ function setMap(values)
             counter++;
         })	
   }});
+$.mobile.hidePageLoadingMsg();
 }
 function getResults(address)
 {
-	$.mobile.showPageLoadingMsg();
+	
 
 	$("#results #content #ajaxResults #list").html("");
 	$.getJSON(ajaxURL+"?LANGUAGE="+language+"&address="+address, {}, 
@@ -225,15 +229,18 @@ function getResults(address)
 				$(".ilistClick").bind({click:function(e){clickIListHandler(e)}});
 				
 			list.listview('refresh');
-			$.mobile.hidePageLoadingMsg();	
+			
     });
+	
 	$('#results').trigger('create');
 }
 $(document).ready(function() {
       var ajaxObject;
        $("#geoLocalise").click(function(e) {
 			e.preventDefault();	
-			navigator.geolocation.getCurrentPosition(onSuccess, onError);             
+			//navigator.geolocation.getCurrentPosition(onSuccess, onError);             
+			getResults(geolocation.coords.latitude+','+geolocation.coords.longitude);
+			$.mobile.showPageLoadingMsg();
           });
 		$('#searchClick').click(function(e) {
 			e.preventDefault();
@@ -243,6 +250,7 @@ $(document).ready(function() {
                 return false;
 		    }
 		    getResults(utf8adresse);
+		$.mobile.showPageLoadingMsg();
 		});
 		$('.onEnterSearch').keypress(function(evt) {
 		    if(evt.keyCode === 13){
@@ -251,6 +259,7 @@ $(document).ready(function() {
 					var utf8adresse = unescape( encodeURIComponent( $('#addresse').val()) );
 					$.mobile.changePage($("#results"));
 					getResults(utf8adresse);
+					$.mobile.showPageLoadingMsg();
 				}
 		        return false;
 		    }
