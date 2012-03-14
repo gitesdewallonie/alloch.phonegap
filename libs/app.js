@@ -2,6 +2,7 @@ var zoomGlobal = 9;
 var ajaxURL = "http://www.allochambredhotes.be/getMobileClosestHebs";
 var watchID = null;
 var geolocation = null;
+var isGeolocated = false;
 function onBodyLoad()
 {		
 	checkConnectivity();
@@ -22,6 +23,7 @@ function onDeviceReady()
 
 function checkConnectivity()
 {
+	
 	var isOnline = false;
 	if (navigator.onLine) {
 	  isOnline = true;
@@ -34,8 +36,15 @@ function checkConnectivity()
 
 //GEOLOC START
 var onSuccess = function(position) {
-	geolocation = position;
-//	getResults(position.coords.latitude+','+position.coords.longitude);
+
+	if(isGeolocated){
+		getResults(position.coords.latitude+','+position.coords.longitude);
+	} else
+	{
+			navigator.geolocation.clearWatch(watchID);
+			geolocation = position;
+			isGeolocated = true;
+	}
 };	
 
 // onError Callback receives a PositionError object
@@ -194,8 +203,7 @@ $.mobile.hidePageLoadingMsg();
 }
 function getResults(address)
 {
-	
-
+	$.mobile.showPageLoadingMsg();
 	$("#results #content #ajaxResults #list").html("");
 	$.getJSON(ajaxURL+"?LANGUAGE="+language+"&address="+address, {}, 
         function(data,textStatus) 
@@ -227,20 +235,23 @@ function getResults(address)
                 setMap(mapPoints);
 				$(".listClick").bind({click:function(e){clickHandler(e)}});
 				$(".ilistClick").bind({click:function(e){clickIListHandler(e)}});
-				
 			list.listview('refresh');
-			
+			$.mobile.hidePageLoadingMsg();
     });
 	
 	$('#results').trigger('create');
 }
 $(document).ready(function() {
+	
       var ajaxObject;
        $("#geoLocalise").click(function(e) {
 			e.preventDefault();	
-			//navigator.geolocation.getCurrentPosition(onSuccess, onError);             
-			getResults(geolocation.coords.latitude+','+geolocation.coords.longitude);
-			$.mobile.showPageLoadingMsg();
+			if(isGeolocated)
+			{
+				navigator.geolocation.getCurrentPosition(onSuccess, onError);
+			} else{             
+				getResults(geolocation.coords.latitude+','+geolocation.coords.longitude);
+			}	
           });
 		$('#searchClick').click(function(e) {
 			e.preventDefault();
@@ -250,7 +261,6 @@ $(document).ready(function() {
                 return false;
 		    }
 		    getResults(utf8adresse);
-		$.mobile.showPageLoadingMsg();
 		});
 		$('.onEnterSearch').keypress(function(evt) {
 		    if(evt.keyCode === 13){
@@ -259,7 +269,6 @@ $(document).ready(function() {
 					var utf8adresse = unescape( encodeURIComponent( $('#addresse').val()) );
 					$.mobile.changePage($("#results"));
 					getResults(utf8adresse);
-					$.mobile.showPageLoadingMsg();
 				}
 		        return false;
 		    }

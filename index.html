@@ -11,7 +11,11 @@
         <link rel="stylesheet" type="text/css" href="libs/app.css"><!-- <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile.structure-1.0.min.css" /> -->
         
        <script type="text/javascript" charset="utf-8">
-            var language = navigator.language.substr(0, 2);
+            var language = navigator.language.substr(0, 2).toLowerCase();
+            if(language != "en" && language !="fr" && language !="nl")
+            {
+                language = "fr";
+            }
 //            var language = "en";
        </script>
         
