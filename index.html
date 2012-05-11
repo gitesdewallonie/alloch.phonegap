@@ -11,12 +11,30 @@
         <link rel="stylesheet" type="text/css" href="libs/app.css"><!-- <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile.structure-1.0.min.css" /> -->
         
        <script type="text/javascript" charset="utf-8">
-            var language = navigator.language.substr(0, 2).toLowerCase();
+           var language;
+
+           // PhoneGap on Android would always return EN in navigator.*language.
+           // Parse userAgent instead
+           // Mozilla/5.0 (Linux; U; Android 2.2; de-ch; HTC Desire Build/FRF91) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1
+           if ( navigator && navigator.userAgent && (language = navigator.userAgent.match(/android.*\W(\w\w)-(\w\w)\W/i))) {
+                   language = language[1];
+           }
+           if (!language && navigator) {
+                   if (navigator.language) {
+                           language = navigator.language;
+                   } else if (navigator.browserLanguage) {
+                           language = navigator.browserLanguage;
+                   } else if (navigator.systemLanguage) {
+                           language = navigator.systemLanguage;
+                   } else if (navigator.userLanguage) {
+                           language = navigator.userLanguage;
+                   }
+                   language = language.substr(0, 2);
+           }
             if(language != "en" && language !="fr" && language !="nl")
             {
                 language = "fr";
             }
-//            var language = "en";
        </script>
         
         <script src="phonegap.js"></script>
@@ -103,6 +121,9 @@
                 </h1>
             </div><!-- /header -->
             <div data-role="content">
+                <div id="logo_home">
+                    <img src="libs/images/logo.png">
+                </div>
                 <p>
                     <script type="text/javascript" charset="utf-8">
                          switch (language)

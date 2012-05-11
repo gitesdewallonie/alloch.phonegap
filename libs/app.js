@@ -242,9 +242,8 @@ function getResults(address)
 	$('#results').trigger('create');
 }
 $(document).ready(function() {
-	
-      var ajaxObject;
-       $("#geoLocalise").click(function(e) {
+		var ajaxObject;
+		$("#geoLocalise").click(function(e) {
 			e.preventDefault();	
 			if(isGeolocated)
 			{
