@@ -8,6 +8,7 @@ function onBodyLoad()
 	checkConnectivity();
 	document.addEventListener("deviceready", onDeviceReady, false);
 //	document.addEventListener("pause", onResume, false);
+	onDeviceReady();
 }
 
 
@@ -49,8 +50,20 @@ var onSuccess = function(position) {
 
 // onError Callback receives a PositionError object
 function onError(error) {
-    alert('code: '    + error.code    + '\n' +
-          'message: ' + error.message + '\n');
+   //alert('code: '    + error.code    + '\n' +'message: ' + error.message + '\n');
+	 switch (language)
+    {
+        case "en":
+         alert("You need to accept and use you GPS for this app to work properly");
+        break;
+        case "fr":
+          alert("Vous devez permettre l'utilisation de votre gps pour que cette application soit opérationelle");
+        break;
+        case "nl":
+          alert("You need to accept and use you GPS for this app to work properly");
+         break;
+    }
+
 }
 //GEOLOC STOP
 
