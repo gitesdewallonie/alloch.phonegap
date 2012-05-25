@@ -77,6 +77,7 @@ function clickIListHandler(evt)
 		listHtml+=('<li><a class="listClick" id="'+evt.currentTarget.id+'_'+i+'" data-url="details&ui-page=listview-1" ><img src="'+data[i].thumb+'"/><h3>'+data[i].name+'</h3></a></li>');
 	}
 	listHtml+='</ul>';
+	$("#resultsListe #header #titre").html(data[0].name);
 	$("#resultsListe #content").html(listHtml);
 	$("#resultsListe #content #listeChambres .listClick").bind({click:function(e){clickHandler(e)}});
 	$.mobile.changePage($("#resultsListe"));

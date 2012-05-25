@@ -49,6 +49,7 @@
         <script type="text/javascript" src="libs/diapo.js"></script>
         <script id="detailTpl" type="text/html">
         <div class="pictureholder swipe" > 
+    
             <div class="pix_diapo">
             {{#photos}}
               <div><img src="{{src}}"/></div>
@@ -222,8 +223,9 @@
                 </div><!-- /footer -->
         </div><!-- /page -->
         <div data-role="page" id="resultsListe">
-            <div data-role="header">
-                <script type="text/javascript" charset="utf-8">
+            <div data-role="header" id="header">
+                <a href="#results" data-icon="arrow-l" >Back</a> <h2 id='titre'>Grouped Rooms</h2>
+                <!--<script type="text/javascript" charset="utf-8">
                      switch (language)
                      {
                          case "en":
@@ -236,7 +238,7 @@
                              document.write('<a href="#results" data-icon="arrow-l" >Back</a> <h2>Gegroepeerde gastenkamers</h2>');
                           break;
                      }
-                   </script>
+                   </script>-->
             </div><!-- /header -->
             <div data-role="content" id="content"></div><!-- /content -->
         </div><!-- /page -->
