@@ -5,10 +5,10 @@ var geolocation = null;
 var isGeolocated = false;
 function onBodyLoad()
 {		
-	checkConnectivity();
+
 	document.addEventListener("deviceready", onDeviceReady, false);
 //	document.addEventListener("pause", onResume, false);
-	onDeviceReady();
+//	onDeviceReady();
 }
 
 
@@ -20,19 +20,22 @@ function onDeviceReady()
 {
  		var options = { frequency: 3000 };
         watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
+		checkConnectivity();
 }
 
 function checkConnectivity()
 {
-	
 	var isOnline = false;
-	if (navigator.onLine) {
-	  isOnline = true;
+	var networkState = navigator.network.connection.type;
+	if (networkState != "none") 
+	{
+		isOnline = true;
 	} else {
-	  alert("Il n'y a pas Internet ...");
-      // navigator.app.exitApp();
+	  alert("There's no access to internet, this app needs a connection");
+	navigator.app.exitApp();
 	  isOnline = false; 
 	}
+
 }
 
 //GEOLOC START
@@ -287,7 +290,7 @@ $(document).ready(function() {
 		    }
 		    return true;
 		});
-	
+
 });
 
 $(document).bind("mobileinit", function(){
