@@ -7,8 +7,8 @@ function onBodyLoad()
 {		
 
 	document.addEventListener("deviceready", onDeviceReady, false);
-//	document.addEventListener("pause", onResume, false);
-//	onDeviceReady();
+//pour tester en local il faut appeler le ondevoce ici
+	onDeviceReady();
 }
 
 
@@ -32,7 +32,7 @@ function checkConnectivity()
 		isOnline = true;
 	} else {
 	  alert("There's no access to internet, this app needs a connection");
-	navigator.app.exitApp();
+		navigator.app.exitApp();
 	  isOnline = false; 
 	}
 
@@ -185,7 +185,7 @@ function setMap(values)
     if ($("#results #content #map").gmap('getMarkers').length > 0) {
         $("#results #content #map").gmap('destroy');
     }
-	$("#results #content #map").gmap({'zoom':zoomGlobal,'disableDefaultUI':true,'mapTypeControl':false,'navigationControl':false,'callback': function(){
+	$("#results #content #map").gmap({'zoom':zoomGlobal,'disableDefaultUI':false,'streetViewControl':false,'mapTypeControl':false,'navigationControl':true,'callback': function(){
         var counter = 0;
         var link = "";
         var infoValue = "";
