@@ -54,13 +54,13 @@ function onError(error) {
 	 switch (language)
     {
         case "en":
-         alert("You need to accept and use you GPS for this app to work properly");
+         alert("Please authorize the use of your GPS system for this application to be operational.");
         break;
         case "fr":
-          alert("Vous devez permettre l'utilisation de votre gps pour que cette application soit opérationelle");
+          alert("Vous devez autoriser l'utilisation de votre gps pour que cette application soit opérationnelle.");
         break;
         case "nl":
-          alert("You need to accept and use you GPS for this app to work properly");
+          alert("U moet het gebruik van uw gps toestaan om deze applicatie in werking te stellen.");
          break;
     }
 
