@@ -38,7 +38,20 @@ function checkConnectivity()
 	{
 		isOnline = true;
 	} else {
-	  alert("There's no access to internet, this app needs a connection");
+		 switch (language)
+	    {
+	        case "en":
+	         	alert("There's no access to internet, this app needs a connection");
+	        break;
+	        case "fr":
+	          alert("Vous n'êtes pas connecté à Internet.  Cette application doit se connecter.");
+	        break;
+	        case "nl":
+	          	alert("Er is geen toegang tot internet. Voor deze applicatie is een verbinding met internet nodig.");
+	         break;
+	    }
+	
+	
 		navigator.app.exitApp();
 	  isOnline = false; 
 	}
