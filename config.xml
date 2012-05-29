@@ -34,9 +34,9 @@
     <icon src="icons/icon-114.png" width="114" height="114"/>
     
     <!-- Android requires specific dimensions; ldpi, mdpi, and hdpi respectively -->
-    <icon src="icons/icon-36.png" width="36" height="36"/>
-    <icon src="icons/icon-48.png" width="48" height="48"/>
-    <icon src="icons/icon-72.png" width="72" height="72"/>
+    <icon src="icons/icon-36.png" gap:platform="android" gap:density="ldpi" />
+    <icon src="icons/icon-48.png" gap:platform="android" gap:density="mdpi" />
+    <icon src="icons/icon-72.png" gap:platform="android" gap:density="hdpi" />
     
     <!-- iOS requires specific dimensions for different devices; classic iPhone
       screens, Retina displays, and iPad screens -->
