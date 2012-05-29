@@ -3,6 +3,13 @@ var ajaxURL = "http://www.allochambredhotes.be/getMobileClosestHebs";
 var watchID = null;
 var geolocation = null;
 var isGeolocated = false;
+var isTextSearch = false;
+var utf8adresse ;
+var giteLon,giteLat;
+var myLatitude;
+var myLongitude;
+var mapPoints;
+var fromHomePage= true;
 function onBodyLoad()
 {		
 
@@ -90,17 +97,8 @@ function clickIListHandler(evt)
 
 function clickItineraireHandler(evt,args)
 {
-	var myLatitude, myLongitude, contentHtml;
-	navigator.geolocation.getCurrentPosition(function(position)
-	{
-		myLatitude = position.coords.latitude;
-		myLongitude = position.coords.longitude;
-		$("#itineraire #content #map").gmap({ 'center': new google.maps.LatLng(myLatitude,myLongitude),'disableDefaultUI':true,'mapTypeControl':false,'navigationControl':false, 'callback': function() {
-			$('#itineraire #content #map').gmap('displayDirections', { 'origin': new google.maps.LatLng(myLatitude,myLongitude), 'destination': new google.maps.LatLng(args.longitude, args.latitude ), 'travelMode': google.maps.DirectionsTravelMode.DRIVING, 'unitSystem': google.maps.UnitSystem.METRIC },{ 'panel': document.getElementById('directions')}, function(success, result) {
-				if ( success ){} else{alert("Data not received")}     
-			});
-		}});
-	});
+	giteLat = args.latitude;
+	giteLon = args.longitude;
 	$.mobile.changePage($("#itineraire"));
 }
 
@@ -180,7 +178,6 @@ function clickHandler(evt)
 
 function setMap(values)
 {
-
 	$("#results #content #map").gmap();
     if ($("#results #content #map").gmap('getMarkers').length > 0) {
         $("#results #content #map").gmap('destroy');
@@ -220,8 +217,14 @@ $.mobile.hidePageLoadingMsg();
 }
 function getResults(address)
 {
-	$.mobile.showPageLoadingMsg();
-	$("#results #content #ajaxResults #list").html("");
+	utf8adresse = address;
+		$.mobile.showPageLoadingMsg();
+	if(fromHomePage)
+	{
+	
+		$("#results #content #ajaxResults #list").html("");
+
+	
 	$.getJSON(ajaxURL+"?LANGUAGE="+language+"&address="+address, {}, 
         function(data,textStatus) 
 	{		
@@ -234,7 +237,7 @@ function getResults(address)
             	var list = $("#results #content #ajaxResults #list");
             	list.html("");
             	var counter = 0;
-                var mapPoints = [];
+                mapPoints = [];
             	$.each(items, function(key, val) {
 					if(!$.isArray(items[key])){
 		                list.append('<li><a class="listClick" id="'+counter+'" ><img src="'+val.thumb+'"/><h3>'+val.name+'</h3></a></li>');
@@ -255,9 +258,62 @@ function getResults(address)
 			list.listview('refresh');
 			$.mobile.hidePageLoadingMsg();
     });
-	
+	} else
+	{
+			var items = ajaxObject;
+        	var list = $("#results #content #ajaxResults #list");
+        	list.html("");
+        	var counter = 0;
+            mapPoints = [];
+        	$.each(items, function(key, val) {
+				if(!$.isArray(items[key])){
+	                list.append('<li><a class="listClick" id="'+counter+'" ><img src="'+val.thumb+'"/><h3>'+val.name+'</h3></a></li>');
+					val.list = false;
+                    mapPoints.push(val);
+				} else
+				{
+	                list.append('<li><a class="ilistClick" id="'+counter+'"><img src="'+val[0].thumb+'"/><h3>'+val[0].name+'</h3></a><span class="ui-li-count">'+val.length+'</span></li>');
+					value = val[0];
+					value.list = true;
+                    mapPoints.push(value);
+				}
+				counter++;
+			});
+            setMap(mapPoints);
+			$(".listClick").bind({click:function(e){clickHandler(e)}});
+			$(".ilistClick").bind({click:function(e){clickIListHandler(e)}});
+		list.listview('refresh');
+			$.mobile.hidePageLoadingMsg();
+	}
 	$('#results').trigger('create');
+
 }
+
+function itinerairePageUpdate(event)
+{
+		$.mobile.showPageLoadingMsg();
+	$("#itineraire #content #map").gmap({'disableDefaultUI':true,'mapTypeControl':false,'streetViewControl':false,'navigationControl':true, 'callback': function() {
+		if(isTextSearch)
+		{
+			$('#itineraire #content #map').gmap('displayDirections', { 'origin': utf8adresse, 'destination': new google.maps.LatLng(giteLon, giteLat ), 'travelMode': google.maps.DirectionsTravelMode.DRIVING, 'unitSystem': google.maps.UnitSystem.METRIC },{ 'panel': document.getElementById('directions')}, function(success, result) {
+					if ( success ){	} else{alert("Data not received")}     
+				});
+		}
+		else
+		  {
+				navigator.geolocation.getCurrentPosition(function(position)
+				{
+					myLatitude = position.coords.latitude;
+					myLongitude = position.coords.longitude;
+					$('#itineraire #content #map').gmap('displayDirections', { 'origin': new google.maps.LatLng(myLatitude,myLongitude), 'destination': new google.maps.LatLng(giteLon, giteLat ), 'travelMode': google.maps.DirectionsTravelMode.DRIVING, 'unitSystem': google.maps.UnitSystem.METRIC },{ 'panel': document.getElementById('directions')}, function(success, result) {
+						if ( success ){} else{alert("Data not received")}     
+					});
+				});
+			}
+		}});
+		$.mobile.hidePageLoadingMsg();
+}
+
 $(document).ready(function() {
 		var ajaxObject;
 		$("#geoLocalise").click(function(e) {
@@ -265,36 +321,56 @@ $(document).ready(function() {
 			if(isGeolocated)
 			{
 				navigator.geolocation.getCurrentPosition(onSuccess, onError);
-			} else{             
-				getResults(geolocation.coords.latitude+','+geolocation.coords.longitude);
+			} else{     
+				utf8adresse =  geolocation.coords.latitude+','+geolocation.coords.longitude       
+				getResults(utf8adresse,true);
 			}	
           });
 		$('#searchClick').click(function(e) {
 			e.preventDefault();
-			var utf8adresse = unescape( encodeURIComponent( $('#addresse').val()) );
+			utf8adresse = unescape( encodeURIComponent( $('#addresse').val()) );
             if (utf8adresse == "") {
                 alert('Vous devez rentrer une adresse ...')
                 return false;
 		    }
-		    getResults(utf8adresse);
+			isTextSearch = true;
+		    getResults(utf8adresse,true);
 		});
 		$('.onEnterSearch').keypress(function(evt) {
 		    if(evt.keyCode === 13){
 		        if(this.value != "") {
 					evt.preventDefault();
-					var utf8adresse = unescape( encodeURIComponent( $('#addresse').val()) );
+					utf8adresse = unescape( encodeURIComponent( $('#addresse').val()) );
 					$.mobile.changePage($("#results"));
-					getResults(utf8adresse);
+					getResults(utf8adresse,true);
+					isTextSearch = true;
 				}
 		        return false;
 		    }
+			
 		    return true;
 		});
 
 });
-
 $(document).bind("mobileinit", function(){
 	$.mobile.defaultPageTransition = 'fade';
 	$.mobile.allowCrossDomainPages = true;
-//	$.mobile.touchOverflowEnabled = true;
+	$('#itineraire').live('pageshow',function(event){
+		$('#itineraire #content').html("");
+		$('#itineraire #content').html('<div id="map" class="map"></div><div id="directions"></div>');
+		fromHomePage=false;
+		itinerairePageUpdate(event);
+		
+	});
+	$('#results').live('pageshow',function(event){
+		if(!fromHomePage)
+		{
+			getResults(utf8adresse);
+		}
+	});
+	$('#home').live('pageshow',function(event){
+		isTextSearch = false;
+		utf8adresse = '';
+		fromHomePage = true;
+	});
 });
