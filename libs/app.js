@@ -44,7 +44,7 @@ function checkConnectivity()
 	         	alert("There's no access to internet, this app needs a connection");
 	        break;
 	        case "fr":
-	          alert("Vous n&#x27;&ecirc;tes pas connect&eacute; à Internet.  Cette application doit se connecter.");
+	          alert("Vous n'êtes pas connecté à Internet.  Cette application doit se connecter.");
 	        break;
 	        case "nl":
 	          	alert("Er is geen toegang tot internet. Voor deze applicatie is een verbinding met internet nodig.");
@@ -80,7 +80,7 @@ function onError(error) {
          alert("Please authorize the use of your GPS system for this application to be operational.");
         break;
         case "fr":
-          alert("Vous devez autoriser l'utilisation de votre gps pour que cette application soit op&eacute;rationnelle.");
+          alert("Vous devez autoriser l'utilisation de votre gps pour que cette application soit opérationnelle.");
         break;
         case "nl":
           alert("U moet het gebruik van uw gps toestaan om deze applicatie in werking te stellen.");
