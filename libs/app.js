@@ -10,12 +10,13 @@ var myLatitude;
 var myLongitude;
 var mapPoints;
 var fromHomePage= true;
+var isGeolocPossible = false;
 function onBodyLoad()
 {		
 
 	document.addEventListener("deviceready", onDeviceReady, false);
 //pour tester en local il faut appeler le ondevoce ici
-	onDeviceReady();
+	//onDeviceReady();
 }
 
 
@@ -25,13 +26,9 @@ function onBodyLoad()
 */
 function onDeviceReady()
 {
-		checkConnectivity();
-}
-
-function geolocMe()
-{
-		var options = { frequency: 3000 };
+ 		var options = { frequency: 3000 };
         watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
+		checkConnectivity();
 }
 
 function checkConnectivity()
@@ -64,7 +61,7 @@ function checkConnectivity()
 
 //GEOLOC START
 var onSuccess = function(position) {
-
+	isGeolocPossible = true;
 	if(isGeolocated){
 		getResults(position.coords.latitude+','+position.coords.longitude);
 	} else
@@ -332,7 +329,20 @@ $(document).ready(function() {
 		var ajaxObject;
 		$("#geoLocalise").click(function(e) {
 			e.preventDefault();	
-			geolocMe();
+			if(isGeolocPossible)
+			{
+				if(isGeolocated)
+				{
+					navigator.geolocation.getCurrentPosition(onSuccess, onError);
+				} else{     
+					utf8adresse =  geolocation.coords.latitude+','+geolocation.coords.longitude       
+					getResults(utf8adresse,true);
+				}
+				$.mobile.changePage($("#results"));
+			}
+			else{
+				onError();
+			}	
           });
 		$('#searchClick').click(function(e) {
 			e.preventDefault();
