@@ -25,9 +25,13 @@ function onBodyLoad()
 */
 function onDeviceReady()
 {
- 		var options = { frequency: 3000 };
-        watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
 		checkConnectivity();
+}
+
+function geolocMe()
+{
+		var options = { frequency: 3000 };
+        watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
 }
 
 function checkConnectivity()
@@ -328,13 +332,7 @@ $(document).ready(function() {
 		var ajaxObject;
 		$("#geoLocalise").click(function(e) {
 			e.preventDefault();	
-			if(isGeolocated)
-			{
-				navigator.geolocation.getCurrentPosition(onSuccess, onError);
-			} else{     
-				utf8adresse =  geolocation.coords.latitude+','+geolocation.coords.longitude       
-				getResults(utf8adresse,true);
-			}	
+			geolocMe();
           });
 		$('#searchClick').click(function(e) {
 			e.preventDefault();
