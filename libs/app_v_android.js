@@ -15,6 +15,7 @@ function onBodyLoad()
 {		
 
 	document.addEventListener("deviceready", onDeviceReady, false);
+//pour tester en local il faut appeler le ondevoce ici
 
 }
 
@@ -28,7 +29,7 @@ function onDeviceReady()
  		var options = { frequency: 3000 };
         watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
 		//Quand vous ne checker pas sur le device commenter le checkConnectivity
-		checkConnectivity();
+		//checkConnectivity();
 }
 
 function checkConnectivity()
@@ -65,11 +66,11 @@ var onSuccess = function(position) {
 
 	isGeolocPossible = true;
 	if(isGeolocated){
-	//console.log("onSuccess 1");
+	alert("1")
 		getResults(position.coords.latitude+','+position.coords.longitude);
 	} else
 	{
-		//console.log("onSuccess 2");
+		alert("2");
 			navigator.geolocation.clearWatch(watchID);
 			geolocation = position;
 			isGeolocated = true;
@@ -236,18 +237,13 @@ $.mobile.hidePageLoadingMsg();
 function getResults(address)
 {
 	$.mobile.showPageLoadingMsg();
-	console.log(address);
 	utf8adresse = address;
 	if(fromHomePage)
 	{
-		
 		$("#results #content #ajaxResults #list").html("");
-		//console.log("getResults 1");
-		$.support.cors = true;
 		$.getJSON(ajaxURL+"?LANGUAGE="+language+"&address="+address, {}, 
         function(data,textStatus) 
-		{		
-				//console.log("getResults 1 getJSON");
+	{		
 				if(textStatus!='success')
 				{
 					alert("Il y a un soucis de connection au serveur")
@@ -280,7 +276,6 @@ function getResults(address)
     });
 	} else
 	{
-		console.log("getResults 2");
 			var items = ajaxObject;
         	var list = $("#results #content #ajaxResults #list");
         	list.html("");
@@ -337,8 +332,7 @@ function itinerairePageUpdate(event)
 }
 
 $(document).ready(function() {
-		//pour tester en local il faut appeler le ondevoce ici
-		//onDeviceReady();
+		onDeviceReady();
 		var ajaxObject;
 		$("#geoLocalise").click(function(e) {
 			e.preventDefault();	
