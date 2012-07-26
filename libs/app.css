@@ -64,10 +64,28 @@ padding-left: 68px;
     padding:0 0 0 0;
 }
 
+#credit-image {
+	text-align: center;
+}
+
 /****HOME ZONE****/
 
 #home #logo_home{
 	text-align : center;
+}
+
+#sponsors {
+	border-top: 0.1em dashed gray;
+	margin: 4em auto 0em auto;
+	padding-top: 2em;
+	width: 80%;
+	text-align : center;
+	font-size: 0.8em;
+}
+
+#sponsors a {
+	display: inline;
+	text-decoration: none;
 }
 
 /****DETAILS ZONE****/

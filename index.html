@@ -159,8 +159,50 @@
                                          document.write('<label for="name">Addres :</label> <span><input type="text" name="addresse" class="onEnterSearch" id="addresse" value=""> <a href="#results" id="searchClick"  data-role="button" name="searchClick">Zoek</a></span></a>');
                                       break;
                                  }
-                               </script>
+                          </script>
                     </form>
+                </div>
+                <div id="sponsors">
+                    <a rel="external" target="blank" href="http://www.tourismewallonie.be">
+                        <img src="libs/images/logos/wallonie.png"><br />
+                        <script type="text/javascript" charset="utf-8">
+                             switch (language)
+                             {
+                                 case "en":
+                                   document.write('with the support of the Commissariat général au Tourisme de Wallonie, the Tourist Board of Wallonia');
+                                 break;
+                                 case "fr":
+                                   document.write('avec le soutien du Commissariat général au Tourisme de Wallonie');
+                                 break;
+                                 case "nl":
+                                   document.write('met de steun van het Commissariaat-generaal voor Toerisme van Wallonië');
+                                 break;
+                             }
+                        </script>
+                    </a>
+                    <br /><br />
+                    <a rel="external" target="blank" href="http://www.wallonietourisme.be">
+                        <img src="libs/images/logos/wallonie-bruxelles.jpg"><br />
+                        Wallonie-Bruxelles tourisme
+                    </a>
+                    <br /><br />
+                    <a rel="external" target="blank" href="http://ec.europa.eu/agriculture/rurdev/index_fr.htm">
+                        <img src="libs/images/logos/ue_wallonie.png"><br />
+                        <script type="text/javascript" charset="utf-8">
+                             switch (language)
+                             {
+                                 case "en":
+                                   document.write('European Agricultural Fund for Rural Development.<br />Europe invests in rural areas.');
+                                 break;
+                                 case "fr":
+                                   document.write('Fonds européen agricole pour le développement rural.<br />L\'Europe investit dans les zones rurales.');
+                                 break;
+                                 case "nl":
+                                   document.write('Europees Landbouwfonds voor Plattelandsontwikkeling.<br />Europa investeert in de plattelandsgebieden.');
+                                 break;
+                             }
+                        </script>
+                    </a>
                 </div>
             </div><!-- /content -->
             <div class="footer" data-role="footer" data-position="fixed">
@@ -324,7 +366,9 @@
                            </script>               
             </div><!-- /header -->
             <div id="content" data-role="content">
-             <img src="libs/images/credit.png">
+                <div id="credit-image">
+                    <img src="libs/images/credit.png">
+                </div>
             </div><!-- /content -->
             <div class="footer" data-role="footer" data-position="fixed">
                      <div id="homeNav"><a href="#home" data-icon="home" data-role="button" data-iconpos="notext">Home</a></div>
