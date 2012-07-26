@@ -306,6 +306,7 @@ function itinerairePageUpdate(event)
 	$("#itineraire #content #map").gmap({'disableDefaultUI':true,'mapTypeControl':false,'streetViewControl':false,'navigationControl':true, 'callback': function() {
 		if(isTextSearch)
 		{
+	        utf8adresse = utf8adresse + ', Belgique';
 			$('#itineraire #content #map').gmap('displayDirections', { 'origin': utf8adresse, 'destination': new google.maps.LatLng(giteLon, giteLat ), 'travelMode': google.maps.DirectionsTravelMode.DRIVING, 'unitSystem': google.maps.UnitSystem.METRIC },{ 'panel': document.getElementById('directions')}, function(success, result) {
 					if ( success ){	} else{alert("Data not received")}     
 				});
